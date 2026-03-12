@@ -1,0 +1,102 @@
+/*
+ * RTL Stylesheet for ScalerNews
+ * Overrides for Right-to-Left language support
+ *
+ * @package ScalerNews
+ * @since 1.0.0
+ */
+
+/* Direction */
+body {
+  direction: rtl;
+  unicode-bidi: embed;
+}
+
+/* Text alignment flips */
+.sn-single-post__content,
+.sn-post-card__body,
+.sn-post-card__excerpt {
+  text-align: right;
+}
+
+/* Margin/padding flips */
+.sn-post-card__category {
+  left: auto;
+  right: var(--sn-space-sm);
+}
+
+.sn-section-heading__title {
+  padding-left: 0;
+  padding-right: var(--sn-space-md);
+}
+
+.sn-section-heading__title::before {
+  left: auto;
+  right: 0;
+}
+
+/* Float flips */
+.alignleft {
+  float: right;
+  margin-right: 0;
+  margin-left: var(--sn-space-lg);
+}
+
+.alignright {
+  float: left;
+  margin-left: 0;
+  margin-right: var(--sn-space-lg);
+}
+
+/* Blockquote border flip */
+.sn-single-post__content blockquote {
+  border-left: none;
+  border-right: 4px solid var(--sn-color-primary);
+  border-radius: var(--sn-border-radius) 0 0 var(--sn-border-radius);
+}
+
+/* List indent flip */
+.sn-single-post__content ul,
+.sn-single-post__content ol {
+  padding-left: 0;
+  padding-right: var(--sn-space-xl);
+}
+
+/* Navigation dropdown flip */
+.sn-nav__menu .sub-menu {
+  left: auto;
+  right: 0;
+}
+
+/* Breaking news ticker direction */
+.sn-breaking-news__ticker-track {
+  animation-name: ticker-rtl;
+}
+
+@keyframes ticker-rtl {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(50%); }
+}
+
+/* Mobile nav padding flip */
+@media (max-width: 768px) {
+  .sn-nav__menu .sub-menu a {
+    padding-inline-start: var(--sn-space-lg);
+    padding-inline-end: var(--sn-space-2xl);
+  }
+}
+
+/* Comment author avatar flip */
+.sn-comments .comment-author {
+  flex-direction: row-reverse;
+}
+
+/* Meta items flex direction */
+.sn-post-card__meta {
+  flex-direction: row-reverse;
+}
+
+/* Footer bottom layout */
+.sn-footer__bottom {
+  flex-direction: row-reverse;
+}
