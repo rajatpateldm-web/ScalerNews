@@ -73,7 +73,7 @@ if ( $hero_query->have_posts() ) :
 					<?php echo esc_html( $hero_posts[0]['category'][0]->name ); ?>
 				</a>
 			<?php endif; ?>
-			<h2><a href="<?php echo esc_url( $hero_posts[0]['permalink'] ); ?>"><?php echo esc_html( $hero_posts[0]['title'] ); ?></a></h2>
+			<h2><a class="sn-stretched-link" href="<?php echo esc_url( $hero_posts[0]['permalink'] ); ?>"><?php echo esc_html( $hero_posts[0]['title'] ); ?></a></h2>
 			<p style="color:rgba(255,255,255,0.8);font-size:var(--sn-text-sm);margin-top:var(--sn-space-sm);">
 				<?php echo esc_html( wp_trim_words( $hero_posts[0]['excerpt'], 20 ) ); ?>
 			</p>
@@ -100,7 +100,7 @@ if ( $hero_query->have_posts() ) :
 						<?php echo esc_html( $hero_posts[ $i ]['category'][0]->name ); ?>
 					</a>
 				<?php endif; ?>
-				<h3><a href="<?php echo esc_url( $hero_posts[ $i ]['permalink'] ); ?>"><?php echo esc_html( $hero_posts[ $i ]['title'] ); ?></a></h3>
+				<h3><a class="sn-stretched-link" href="<?php echo esc_url( $hero_posts[ $i ]['permalink'] ); ?>"><?php echo esc_html( $hero_posts[ $i ]['title'] ); ?></a></h3>
 			</div>
 		</div>
 		<?php endfor; ?>

@@ -151,6 +151,17 @@ a {
   transition: color var(--sn-transition-fast);
 }
 
+/* Helper Class: Stretched Link */
+.sn-stretched-link::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  content: "";
+}
+
 a:hover,
 a:focus {
   color: var(--sn-color-link-hover);
@@ -672,6 +683,7 @@ ul, ol {
    NEWS CARDS
    ======================================================================== */
 .sn-post-card {
+  position: relative;
   background-color: var(--sn-color-white);
   border-radius: var(--sn-border-radius);
   overflow: hidden;
@@ -703,6 +715,7 @@ ul, ol {
 
 .sn-post-card__category {
   position: absolute;
+  z-index: 2;
   top: var(--sn-space-sm);
   left: var(--sn-space-sm);
   background-color: var(--sn-color-primary);
@@ -1106,19 +1119,11 @@ ul, ol {
 }
 
 .post-navigation .nav-links {
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: space-between;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
   align-items: flex-start;
-  flex-wrap: nowrap;
   width: 100% !important;
-  gap: var(--sn-space-xl);
-}
-
-.post-navigation .nav-previous,
-.post-navigation .nav-next {
-  flex: 1 1 0;
-  min-width: 0; /* Prevents flex items from overflowing */
+  gap: 0;
 }
 
 .post-navigation .nav-previous {
@@ -1129,8 +1134,19 @@ ul, ol {
   text-align: right;
 }
 
+@media (max-width: 768px) {
+  .post-navigation .nav-links {
+    grid-template-columns: 1fr;
+    gap: var(--sn-space-md);
+  }
+
+  .post-navigation .nav-next {
+    text-align: left;
+  }
+}
+
 .post-navigation a {
-  display: inline-block;
+  display: block;
 }
 
 .post-navigation .nav-subtitle {

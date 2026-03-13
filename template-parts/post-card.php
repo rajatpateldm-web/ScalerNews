@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="sn-post-card__body">
 		<h3 class="sn-post-card__title">
-			<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+			<a class="sn-stretched-link" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 		</h3>
 		<p class="sn-post-card__excerpt"><?php echo esc_html( get_the_excerpt() ); ?></p>
 		<div class="sn-post-card__meta">
