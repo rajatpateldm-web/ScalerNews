@@ -18,125 +18,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 function scalernews_customize_register( $wp_customize ) {
 
 	// =========================================================================
-	// Panel: Design
+	// Site Identity Enhancements
 	// =========================================================================
-	$wp_customize->add_panel( 'scalernews_design_options', array(
-		'title'       => esc_html__( 'Design', 'scalernews' ),
-		'description' => esc_html__( 'Typography, Colors, and Layout settings.', 'scalernews' ),
-		'priority'    => 20,
-	) );
-
-	// Section: Styles (Typography)
-	$wp_customize->add_section( 'scalernews_styles', array(
-		'title'    => esc_html__( 'Styles & Typography', 'scalernews' ),
-		'panel'    => 'scalernews_design_options',
-		'priority' => 10,
-	) );
-
-	$wp_customize->add_setting( 'scalernews_base_font', array(
-		'default'           => 'Inter',
-		'sanitize_callback' => 'sanitize_text_field',
-	) );
-	$wp_customize->add_control( 'scalernews_base_font', array(
-		'type'    => 'select',
-		'label'   => esc_html__( 'Base Font Family', 'scalernews' ),
-		'section' => 'scalernews_styles',
-		'choices' => array(
-			'Inter'     => 'Inter',
-			'Roboto'    => 'Roboto',
-			'Open Sans' => 'Open Sans',
-			'Lato'      => 'Lato',
-		),
-	) );
-
-	$wp_customize->add_setting( 'scalernews_heading_font', array(
-		'default'           => 'Outfit',
-		'sanitize_callback' => 'sanitize_text_field',
-	) );
-	$wp_customize->add_control( 'scalernews_heading_font', array(
-		'type'    => 'select',
-		'label'   => esc_html__( 'Heading Font Family', 'scalernews' ),
-		'section' => 'scalernews_styles',
-		'choices' => array(
-			'Outfit'      => 'Outfit',
-			'Montserrat'  => 'Montserrat',
-			'Poppins'     => 'Poppins',
-			'Oswald'      => 'Oswald',
-			'Georgia'     => 'Georgia (Serif)',
-		),
-	) );
-
-	$wp_customize->add_setting( 'scalernews_base_font_size', array(
-		'default'           => 16,
+	$wp_customize->add_setting( 'scalernews_logo_width', array(
+		'default'           => 180,
 		'sanitize_callback' => 'absint',
 	) );
-	$wp_customize->add_control( 'scalernews_base_font_size', array(
+	$wp_customize->add_control( 'scalernews_logo_width', array(
 		'type'        => 'number',
-		'label'       => esc_html__( 'Base Font Size (px)', 'scalernews' ),
-		'section'     => 'scalernews_styles',
-		'input_attrs' => array( 'min' => 12, 'max' => 24, 'step' => 1 ),
+		'label'       => esc_html__( 'Logo Max Width (px)', 'scalernews' ),
+		'section'     => 'title_tagline',
+		'input_attrs' => array( 'min' => 50, 'max' => 600, 'step' => 5 ),
+		'priority'    => 8,
 	) );
-
-	// Section: Colors
-	$wp_customize->add_section( 'scalernews_colors_ext', array(
-		'title'    => esc_html__( 'Colors', 'scalernews' ),
-		'panel'    => 'scalernews_design_options',
-		'priority' => 20,
-	) );
-
-	// Base Colors
-	$colors = array(
-		'primary_color'   => array( 'label' => 'Primary Color', 'default' => '#e63946' ),
-		'secondary_color' => array( 'label' => 'Secondary Color', 'default' => '#1d3557' ),
-		'accent_color'    => array( 'label' => 'Accent Color', 'default' => '#f4a261' ),
-		'bg_color'        => array( 'label' => 'Background Color', 'default' => '#ffffff' ),
-		'text_color'      => array( 'label' => 'Text Color', 'default' => '#212529' ),
-		'heading_color'   => array( 'label' => 'Heading Color', 'default' => '#1d3557' ),
-		'link_color'      => array( 'label' => 'Link Color', 'default' => '#e63946' ),
-		'button_bg'       => array( 'label' => 'Button Background', 'default' => '#e63946' ),
-		'button_text'     => array( 'label' => 'Button Text', 'default' => '#ffffff' ),
-	);
-
-	foreach ( $colors as $id => $color ) {
-		$wp_customize->add_setting( 'scalernews_' . $id, array(
-			'default'           => $color['default'],
-			'sanitize_callback' => 'sanitize_hex_color',
-		) );
-		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'scalernews_' . $id, array(
-			'label'   => esc_html__( $color['label'], 'scalernews' ),
-			'section' => 'scalernews_colors_ext',
-		) ) );
-	}
-
-	// Section: Layout
-	$wp_customize->add_section( 'scalernews_layout', array(
-		'title'    => esc_html__( 'Layout', 'scalernews' ),
-		'panel'    => 'scalernews_design_options',
-		'priority' => 30,
-	) );
-
-	$wp_customize->add_setting( 'scalernews_container_width', array(
-		'default'           => 1200,
-		'sanitize_callback' => 'absint',
-	) );
-	$wp_customize->add_control( 'scalernews_container_width', array(
-		'type'        => 'number',
-		'label'       => esc_html__( 'Main Container Width (px)', 'scalernews' ),
-		'section'     => 'scalernews_layout',
-		'input_attrs' => array( 'min' => 800, 'max' => 1920, 'step' => 10 ),
-	) );
-
-	$wp_customize->add_setting( 'scalernews_content_width', array(
-		'default'           => 800,
-		'sanitize_callback' => 'absint',
-	) );
-	$wp_customize->add_control( 'scalernews_content_width', array(
-		'type'        => 'number',
-		'label'       => esc_html__( 'Single Post Content Width (px)', 'scalernews' ),
-		'section'     => 'scalernews_layout',
-		'input_attrs' => array( 'min' => 600, 'max' => 1200, 'step' => 10 ),
-	) );
-
 
 	// =========================================================================
 	// Panel: Blog Display
@@ -241,13 +135,89 @@ function scalernews_customize_register( $wp_customize ) {
 	) );
 	$wp_customize->add_setting( 'scalernews_sticky_header', array( 'default' => true, 'sanitize_callback' => 'scalernews_sanitize_checkbox' ) );
 	$wp_customize->add_control( 'scalernews_sticky_header', array( 'type' => 'checkbox', 'label' => esc_html__( 'Enable Sticky Header', 'scalernews' ), 'section' => 'scalernews_header' ) );
+
+	$wp_customize->add_setting( 'scalernews_sticky_menu', array( 'default' => false, 'sanitize_callback' => 'scalernews_sanitize_checkbox' ) );
+	$wp_customize->add_control( 'scalernews_sticky_menu', array( 'type' => 'checkbox', 'label' => esc_html__( 'Enable Sticky Menu', 'scalernews' ), 'section' => 'scalernews_header' ) );
+
 	$wp_customize->add_setting( 'scalernews_breaking_news', array( 'default' => true, 'sanitize_callback' => 'scalernews_sanitize_checkbox' ) );
 	$wp_customize->add_control( 'scalernews_breaking_news', array( 'type' => 'checkbox', 'label' => esc_html__( 'Show Breaking News Ticker', 'scalernews' ), 'section' => 'scalernews_header' ) );
+
+	// -- Logo & Nav Layout --
+	$wp_customize->add_setting( 'scalernews_logo_position', array(
+		'default'           => 'logo-left',
+		'sanitize_callback' => 'scalernews_sanitize_select',
+	) );
+	$wp_customize->add_control( 'scalernews_logo_position', array(
+		'type'    => 'select',
+		'label'   => esc_html__( 'Logo Position', 'scalernews' ),
+		'section' => 'scalernews_header',
+		'choices' => array(
+			'logo-left'   => esc_html__( 'Left', 'scalernews' ),
+			'logo-center' => esc_html__( 'Center', 'scalernews' ),
+			'logo-right'  => esc_html__( 'Right', 'scalernews' ),
+		),
+	) );
+
+	$wp_customize->add_setting( 'scalernews_nav_layout', array(
+		'default'           => 'inline',
+		'sanitize_callback' => 'scalernews_sanitize_select',
+	) );
+	$wp_customize->add_control( 'scalernews_nav_layout', array(
+		'type'    => 'select',
+		'label'   => esc_html__( 'Navigation Layout', 'scalernews' ),
+		'description' => esc_html__( 'Inline: menu on separate row. Header Inline: menu merged into same row as logo.', 'scalernews' ),
+		'section' => 'scalernews_header',
+		'choices' => array(
+			'inline'        => esc_html__( 'Inline (separate nav bar)', 'scalernews' ),
+			'header-inline' => esc_html__( 'Header Inline (logo + menu together)', 'scalernews' ),
+		),
+	) );
+
+	$wp_customize->add_setting( 'scalernews_menu_alignment', array(
+		'default'           => 'right',
+		'sanitize_callback' => 'scalernews_sanitize_select',
+	) );
+	$wp_customize->add_control( 'scalernews_menu_alignment', array(
+		'type'    => 'select',
+		'label'   => esc_html__( 'Menu Alignment', 'scalernews' ),
+		'section' => 'scalernews_header',
+		'choices' => array(
+			'left'   => esc_html__( 'Left', 'scalernews' ),
+			'center' => esc_html__( 'Center', 'scalernews' ),
+			'right'  => esc_html__( 'Right', 'scalernews' ),
+		),
+	) );
+
+	$wp_customize->add_setting( 'scalernews_nav_search', array(
+		'default'           => true,
+		'sanitize_callback' => 'scalernews_sanitize_checkbox',
+	) );
+	$wp_customize->add_control( 'scalernews_nav_search', array(
+		'type'    => 'checkbox',
+		'label'   => esc_html__( 'Show Search in Menu', 'scalernews' ),
+		'section' => 'scalernews_header',
+	) );
 
 	$wp_customize->add_section( 'scalernews_footer', array(
 		'title' => esc_html__( 'Footer', 'scalernews' ),
 		'panel' => 'scalernews_header_footer',
 	) );
+	$wp_customize->add_setting( 'scalernews_footer_widget_columns', array(
+		'default'           => 3,
+		'sanitize_callback' => 'absint',
+	) );
+	$wp_customize->add_control( 'scalernews_footer_widget_columns', array(
+		'type'    => 'select',
+		'label'   => esc_html__( 'Footer Widget Columns', 'scalernews' ),
+		'section' => 'scalernews_footer',
+		'choices' => array(
+			1 => esc_html__( '1 Column', 'scalernews' ),
+			2 => esc_html__( '2 Columns', 'scalernews' ),
+			3 => esc_html__( '3 Columns', 'scalernews' ),
+			4 => esc_html__( '4 Columns', 'scalernews' ),
+		),
+	) );
+
 	$wp_customize->add_setting( 'scalernews_footer_copyright', array( 'default' => '', 'sanitize_callback' => 'wp_kses_post' ) );
 	$wp_customize->add_control( 'scalernews_footer_copyright', array( 'type' => 'textarea', 'label' => esc_html__( 'Copyright Text', 'scalernews' ), 'section' => 'scalernews_footer' ) );
 
@@ -265,6 +235,9 @@ function scalernews_customize_register( $wp_customize ) {
 	$wp_customize->add_setting( 'scalernews_featured_category', array( 'default' => '', 'sanitize_callback' => 'absint' ) );
 	$wp_customize->add_control( 'scalernews_featured_category', array( 'type' => 'select', 'label' => esc_html__( 'Featured Category Section', 'scalernews' ), 'section' => 'scalernews_homepage', 'choices' => scalernews_get_categories_choices() ) );
 
+	$wp_customize->add_setting( 'scalernews_homepage_sidebar', array( 'default' => true, 'sanitize_callback' => 'scalernews_sanitize_checkbox' ) );
+	$wp_customize->add_control( 'scalernews_homepage_sidebar', array( 'type' => 'checkbox', 'label' => esc_html__( 'Enable Homepage Sidebar', 'scalernews' ), 'section' => 'scalernews_homepage' ) );
+
 }
 add_action( 'customize_register', 'scalernews_customize_register' );
 
@@ -273,6 +246,14 @@ add_action( 'customize_register', 'scalernews_customize_register' );
  */
 function scalernews_sanitize_checkbox( $checked ) {
 	return ( isset( $checked ) && true === $checked ) ? true : false;
+}
+
+/**
+ * Sanitize select.
+ */
+function scalernews_sanitize_select( $input, $setting ) {
+	$choices = $setting->manager->get_control( $setting->id )->choices;
+	return array_key_exists( $input, $choices ) ? $input : $setting->default;
 }
 
 /**

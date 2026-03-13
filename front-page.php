@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 ?>
 
-<div class="sn-content-area">
+<div class="sn-content-area<?php if ( ! get_theme_mod( 'scalernews_homepage_sidebar', true ) ) echo ' sn-content-area--full'; ?>">
 	<main id="primary" class="sn-main" role="main">
 		<?php
 		/**
@@ -107,7 +107,11 @@ get_header();
 		?>
 	</main><!-- #primary -->
 
-	<?php get_sidebar(); ?>
+	<?php
+	if ( get_theme_mod( 'scalernews_homepage_sidebar', true ) ) {
+		get_sidebar();
+	}
+	?>
 </div><!-- .sn-content-area -->
 
 <?php

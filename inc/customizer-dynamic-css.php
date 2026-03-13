@@ -64,12 +64,24 @@ function scalernews_dynamic_css() {
 	$css .= '--sn-container-width: ' . absint( $container_width ) . 'px;';
 	$css .= '--sn-content-width: ' . absint( $content_width ) . 'px;';
 
+	$logo_width = get_theme_mod( 'scalernews_logo_width', 180 );
+	$css .= '--sn-logo-width: ' . absint( $logo_width ) . 'px;';
+
 	$css .= '}';
+
+	// Logo Custom CSS
+	$css .= ' .sn-header__logo img { max-width: var(--sn-logo-width); } ';
 
 	// Custom Grid Columns Override
 	$grid_cols = get_theme_mod( 'scalernews_grid_columns', 3 );
 	if ( 3 !== $grid_cols ) {
 		$css .= '@media(min-width: 992px) { .sn-posts-grid { grid-template-columns: repeat(' . absint( $grid_cols ) . ', 1fr); } }';
+	}
+
+	// Footer Widget Columns Override
+	$footer_cols = get_theme_mod( 'scalernews_footer_widget_columns', 3 );
+	if ( 3 !== $footer_cols ) {
+		$css .= '@media(min-width: 768px) { .sn-footer__widgets { grid-template-columns: repeat(' . absint( $footer_cols ) . ', 1fr); } }';
 	}
 
 	echo '<style id="scalernews-custom-dynamic-css">' . $css . '</style>'; // phpcs:ignore

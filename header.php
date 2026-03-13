@@ -83,45 +83,47 @@ do_action( 'scalernews_before_site' );
 							<?php the_custom_logo(); ?>
 						</div>
 					<?php endif; ?>
-					<div class="sn-header__titles">
-						<?php if ( is_front_page() && is_home() ) : ?>
-							<h1 class="sn-header__site-title">
-								<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-									<?php
-									$site_title = get_bloginfo( 'name' );
-									// Split "ScalerNews" to color "News" differently
-									if ( strpos( $site_title, 'News' ) !== false ) {
-										$parts = explode( 'News', $site_title, 2 );
-										echo esc_html( $parts[0] ) . '<span>News</span>';
-									} else {
-										echo esc_html( $site_title );
-									}
-									?>
-								</a>
-							</h1>
-						<?php else : ?>
-							<p class="sn-header__site-title">
-								<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-									<?php
-									$site_title = get_bloginfo( 'name' );
-									if ( strpos( $site_title, 'News' ) !== false ) {
-										$parts = explode( 'News', $site_title, 2 );
-										echo esc_html( $parts[0] ) . '<span>News</span>';
-									} else {
-										echo esc_html( $site_title );
-									}
-									?>
-								</a>
-							</p>
-						<?php endif; ?>
+					<?php if ( display_header_text() ) : ?>
+						<div class="sn-header__titles">
+							<?php if ( is_front_page() && is_home() ) : ?>
+								<h1 class="sn-header__site-title">
+									<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+										<?php
+										$site_title = get_bloginfo( 'name' );
+										// Split "ScalerNews" to color "News" differently
+										if ( strpos( $site_title, 'News' ) !== false ) {
+											$parts = explode( 'News', $site_title, 2 );
+											echo esc_html( $parts[0] ) . '<span>News</span>';
+										} else {
+											echo esc_html( $site_title );
+										}
+										?>
+									</a>
+								</h1>
+							<?php else : ?>
+								<p class="sn-header__site-title">
+									<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+										<?php
+										$site_title = get_bloginfo( 'name' );
+										if ( strpos( $site_title, 'News' ) !== false ) {
+											$parts = explode( 'News', $site_title, 2 );
+											echo esc_html( $parts[0] ) . '<span>News</span>';
+										} else {
+											echo esc_html( $site_title );
+										}
+										?>
+									</a>
+								</p>
+							<?php endif; ?>
 
-						<?php
-						$description = get_bloginfo( 'description', 'display' );
-						if ( $description || is_customize_preview() ) :
-						?>
-							<p class="sn-header__tagline"><?php echo esc_html( $description ); ?></p>
-						<?php endif; ?>
-					</div>
+							<?php
+							$description = get_bloginfo( 'description', 'display' );
+							if ( $description || is_customize_preview() ) :
+							?>
+								<p class="sn-header__tagline"><?php echo esc_html( $description ); ?></p>
+							<?php endif; ?>
+						</div>
+					<?php endif; ?>
 				</div>
 
 				<?php
@@ -131,12 +133,46 @@ do_action( 'scalernews_before_site' );
 				 */
 				do_action( 'scalernews_header_ad' );
 				?>
+
+				<?php if ( 'header-inline' === get_theme_mod( 'scalernews_nav_layout', 'inline' ) ) :
+					$sn_align_h   = get_theme_mod( 'scalernews_menu_alignment', 'right' );
+					$sn_show_srch = get_theme_mod( 'scalernews_nav_search', true );
+				?>
+				<div class="sn-header__inline-nav sn-header__inline-nav--<?php echo esc_attr( $sn_align_h ); ?>">
+					<button class="sn-nav__toggle sn-header__inline-toggle" aria-controls="primary-menu" aria-expanded="false">
+						<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+					</button>
+					<?php
+					wp_nav_menu( array(
+						'theme_location' => 'primary',
+						'menu_id'        => 'primary-menu',
+						'menu_class'     => 'sn-nav__menu sn-nav__menu--inline',
+						'container'      => false,
+						'fallback_cb'    => false,
+					) );
+					?>
+					<?php if ( $sn_show_srch ) : ?>
+					<div class="sn-nav__search">
+						<button class="sn-nav__search-toggle" aria-label="<?php esc_attr_e( 'Open search', 'scalernews' ); ?>">
+							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+						</button>
+					</div>
+					<?php endif; ?>
+				</div>
+				<?php endif; ?>
 			</div>
 		</div>
 	</header><!-- #masthead -->
 
-	<!-- Primary Navigation -->
-	<nav id="site-navigation" class="sn-nav" role="navigation" aria-label="<?php esc_attr_e( 'Primary Navigation', 'scalernews' ); ?>">
+	<?php
+	$sn_nav_layout = get_theme_mod( 'scalernews_nav_layout', 'inline' );
+	$sn_show_search = get_theme_mod( 'scalernews_nav_search', true );
+	$sn_menu_align  = get_theme_mod( 'scalernews_menu_alignment', 'right' );
+	?>
+
+	<?php if ( 'inline' === $sn_nav_layout ) : ?>
+	<!-- Primary Navigation (Separate Bar) -->
+	<nav id="site-navigation" class="sn-nav sn-nav--menu-<?php echo esc_attr( $sn_menu_align ); ?>" role="navigation" aria-label="<?php esc_attr_e( 'Primary Navigation', 'scalernews' ); ?>">
 		<div class="sn-container">
 			<button class="sn-nav__toggle" aria-controls="primary-menu" aria-expanded="false">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -151,13 +187,55 @@ do_action( 'scalernews_before_site' );
 				'fallback_cb'    => false,
 			) );
 			?>
+			<?php if ( $sn_show_search ) : ?>
 			<div class="sn-nav__search">
 				<button class="sn-nav__search-toggle" aria-label="<?php esc_attr_e( 'Open search', 'scalernews' ); ?>">
 					<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
 				</button>
 			</div>
+			<?php endif; ?>
 		</div>
+
+		<?php if ( $sn_show_search ) : ?>
+		<!-- Search Overlay -->
+		<div class="sn-search-overlay">
+			<div class="sn-container">
+				<form role="search" method="get" class="sn-search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+					<label class="screen-reader-text" for="sn-search-input"><?php esc_html_e( 'Search for:', 'scalernews' ); ?></label>
+					<input type="search" id="sn-search-input" class="sn-search-field" placeholder="<?php echo esc_attr__( 'Search &hellip;', 'scalernews' ); ?>" value="<?php echo get_search_query(); ?>" name="s" />
+					<button type="submit" class="sn-search-submit" aria-label="<?php esc_attr_e( 'Submit search', 'scalernews' ); ?>">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+					</button>
+				</form>
+				<button class="sn-search-close" aria-label="<?php esc_attr_e( 'Close search', 'scalernews' ); ?>">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+				</button>
+			</div>
+		</div>
+		<?php endif; ?>
 	</nav><!-- #site-navigation -->
+
+	<?php else : /* header-inline: menu lives inside the header bar */ ?>
+	<!-- Navigation is rendered inside header bar for header-inline mode -->
+	<nav id="site-navigation" class="sn-nav sn-nav--hidden" role="navigation" aria-label="<?php esc_attr_e( 'Primary Navigation', 'scalernews' ); ?>">
+		<?php if ( $sn_show_search ) : ?>
+		<div class="sn-search-overlay">
+			<div class="sn-container">
+				<form role="search" method="get" class="sn-search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+					<label class="screen-reader-text" for="sn-search-input"><?php esc_html_e( 'Search for:', 'scalernews' ); ?></label>
+					<input type="search" id="sn-search-input" class="sn-search-field" placeholder="<?php echo esc_attr__( 'Search &hellip;', 'scalernews' ); ?>" value="<?php echo get_search_query(); ?>" name="s" />
+					<button type="submit" class="sn-search-submit" aria-label="<?php esc_attr_e( 'Submit search', 'scalernews' ); ?>">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+					</button>
+				</form>
+				<button class="sn-search-close" aria-label="<?php esc_attr_e( 'Close search', 'scalernews' ); ?>">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+				</button>
+			</div>
+		</div>
+		<?php endif; ?>
+	</nav><!-- #site-navigation -->
+	<?php endif; ?>
 
 	<?php
 	/**

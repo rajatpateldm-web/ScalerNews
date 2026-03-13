@@ -11,16 +11,19 @@
 
 	document.addEventListener( 'DOMContentLoaded', function() {
 
-		// Sticky header scroll effect
+		// Sticky header/menu scroll effect
 		const header = document.querySelector( '.sn-header' );
-		if ( header ) {
+		const nav = document.querySelector( '.sn-nav' );
+		if ( header || nav ) {
 			let lastScroll = 0;
 			window.addEventListener( 'scroll', function() {
 				const currentScroll = window.pageYOffset;
 				if ( currentScroll > 50 ) {
-					header.classList.add( 'is-scrolled' );
+					if ( header ) header.classList.add( 'is-scrolled' );
+					if ( nav ) nav.classList.add( 'is-scrolled' );
 				} else {
-					header.classList.remove( 'is-scrolled' );
+					if ( header ) header.classList.remove( 'is-scrolled' );
+					if ( nav ) nav.classList.remove( 'is-scrolled' );
 				}
 				lastScroll = currentScroll;
 			}, { passive: true } );
@@ -28,16 +31,24 @@
 
 		// Search toggle
 		const searchToggle = document.querySelector( '.sn-nav__search-toggle' );
-		if ( searchToggle ) {
+		const searchClose = document.querySelector( '.sn-search-close' );
+		const searchForm = document.querySelector( '.sn-search-overlay' );
+		
+		if ( searchToggle && searchForm ) {
 			searchToggle.addEventListener( 'click', function() {
-				const searchForm = document.querySelector( '.sn-search-overlay' );
-				if ( searchForm ) {
-					searchForm.classList.toggle( 'is-active' );
-					const input = searchForm.querySelector( 'input[type="search"]' );
-					if ( input ) {
-						input.focus();
-					}
+				searchForm.classList.add( 'is-active' );
+				const input = searchForm.querySelector( 'input[type="search"]' );
+				if ( input ) {
+					// Small timeout to allow transition before focus
+					setTimeout(() => input.focus(), 100);
 				}
+			} );
+		}
+
+		if ( searchClose && searchForm ) {
+			searchClose.addEventListener( 'click', function(e) {
+				e.preventDefault();
+				searchForm.classList.remove( 'is-active' );
 			} );
 		}
 

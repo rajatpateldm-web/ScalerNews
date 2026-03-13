@@ -65,7 +65,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php endif; ?>
 
 		<div class="sn-footer__bottom">
-			<div class="sn-container" style="display:flex;justify-content:space-between;align-items:center;">
+			<div class="sn-container" style="display:flex; flex-direction:column; align-items:center; gap:var(--sn-space-md); text-align:center;">
+				<div class="sn-footer__nav" style="margin-bottom: var(--sn-space-sm);">
+					<?php
+					if ( has_nav_menu( 'footer' ) ) {
+						wp_nav_menu( array(
+							'theme_location' => 'footer',
+							'menu_class'     => 'sn-footer__menu',
+							'depth'          => 1,
+							'container'      => false,
+						) );
+					}
+					?>
+				</div>
 				<div class="sn-footer__copyright">
 					<?php
 					$copyright = get_theme_mod( 'scalernews_footer_copyright', '' );
@@ -83,18 +95,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<span class="sn-footer__credit" style="margin-left: 10px; opacity: 0.8;">
 						| <?php esc_html_e( 'Powered by', 'scalernews' ); ?> <a href="https://teckscaler.com/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">TeckScaler.com</a>
 					</span>
-				</div>
-				<div class="sn-footer__nav">
-					<?php
-					if ( has_nav_menu( 'footer' ) ) {
-						wp_nav_menu( array(
-							'theme_location' => 'footer',
-							'menu_class'     => 'sn-footer__menu',
-							'depth'          => 1,
-							'container'      => false,
-						) );
-					}
-					?>
 				</div>
 			</div>
 		</div>

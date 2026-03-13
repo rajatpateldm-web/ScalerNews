@@ -304,6 +304,19 @@ function scalernews_body_classes( $classes ) {
 	if ( get_theme_mod( 'scalernews_sticky_header', true ) ) {
 		$classes[] = 'has-sticky-header';
 	}
+	if ( get_theme_mod( 'scalernews_sticky_menu', false ) ) {
+		$classes[] = 'has-sticky-menu';
+	}
+
+	// Header layout classes
+	$logo_position  = get_theme_mod( 'scalernews_logo_position', 'logo-left' );
+	$nav_layout     = get_theme_mod( 'scalernews_nav_layout', 'inline' );
+	$menu_alignment = get_theme_mod( 'scalernews_menu_alignment', 'right' );
+
+	$classes[] = 'sn-logo-' . sanitize_html_class( $logo_position );
+	$classes[] = 'sn-nav-layout-' . sanitize_html_class( $nav_layout );
+	$classes[] = 'sn-menu-' . sanitize_html_class( $menu_alignment );
+
 	return $classes;
 }
 add_filter( 'body_class', 'scalernews_body_classes' );

@@ -41,7 +41,7 @@ function scalernews_breadcrumbs() {
 		return;
 	}
 	?>
-	<nav class="sn-breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumb', 'scalernews' ); ?>" style="font-size:var(--sn-text-sm);color:var(--sn-color-text-secondary);margin-bottom:var(--sn-space-lg);">
+	<nav class="sn-breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumb', 'scalernews' ); ?>" style="font-size:var(--sn-text-sm);color:var(--sn-color-text-secondary);margin-bottom:var(--sn-space-lg);margin-top:var(--sn-space-xl);">
 		<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'scalernews' ); ?></a>
 		<span class="sn-breadcrumbs__separator"> / </span>
 		<?php
