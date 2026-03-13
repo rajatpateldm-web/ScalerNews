@@ -280,6 +280,20 @@ ul, ol {
   justify-content: flex-end;
 }
 
+/* Override center absolute positioning if the navigation is on a separate line (Inline mode) */
+.sn-nav-layout-inline.sn-logo-logo-center .sn-header__branding {
+  position: static;
+  transform: none;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.sn-nav-layout-inline.sn-logo-logo-center .sn-header__main .sn-container {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .sn-logo-logo-right .sn-header__main .sn-container {
   flex-direction: row-reverse;
   justify-content: flex-start;
@@ -307,6 +321,22 @@ ul, ol {
 
 .sn-header__inline-nav--right {
   margin-left: auto;
+}
+
+/* Fallbacks to enforce valid alignments in header-inline mode if database holds invalid combo */
+.sn-logo-logo-left.sn-nav-layout-header-inline .sn-header__inline-nav--left {
+  margin-right: 0;
+  margin-left: auto; /* Force right if invalidly set to left */
+}
+
+.sn-logo-logo-center.sn-nav-layout-header-inline .sn-header__inline-nav--center {
+  margin-inline: 0;
+  margin-left: auto; /* Force right if invalidly set to center */
+}
+
+.sn-logo-logo-right.sn-nav-layout-header-inline .sn-header__inline-nav--right {
+  margin-left: 0;
+  margin-right: auto; /* Force left if invalidly set to right */
 }
 
 /* Hide desktop inline toggle on large screens */
@@ -1072,6 +1102,7 @@ ul, ol {
   margin-top: var(--sn-space-2xl);
   padding-top: var(--sn-space-xl);
   border-top: 1px solid var(--sn-color-gray-200);
+  width: 100%;
 }
 
 .post-navigation .nav-links {
@@ -1080,17 +1111,26 @@ ul, ol {
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: nowrap;
+  width: 100% !important;
   gap: var(--sn-space-xl);
 }
 
+.post-navigation .nav-previous,
+.post-navigation .nav-next {
+  flex: 1 1 0;
+  min-width: 0; /* Prevents flex items from overflowing */
+}
+
 .post-navigation .nav-previous {
-  flex: 1;
   text-align: left;
 }
 
 .post-navigation .nav-next {
-  flex: 1;
   text-align: right;
+}
+
+.post-navigation a {
+  display: inline-block;
 }
 
 .post-navigation .nav-subtitle {
@@ -1259,4 +1299,37 @@ ul, ol {
   gap: 4px;
   font-size: var(--sn-text-xs);
   color: var(--sn-color-text-secondary);
+}
+
+/* ========================================================================
+   SCROLL TO TOP
+   ======================================================================== */
+.sn-scroll-to-top {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--sn-color-primary);
+  color: var(--sn-color-white);
+  border-radius: 50%;
+  box-shadow: var(--sn-shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all var(--sn-transition-normal);
+  z-index: 999;
+}
+
+.sn-scroll-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.sn-scroll-to-top:hover,
+.sn-scroll-to-top:focus {
+  background-color: var(--sn-color-text);
+  color: var(--sn-color-white);
+  transform: translateY(-3px);
+  box-shadow: var(--sn-shadow-lg);
 }

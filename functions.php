@@ -336,3 +336,23 @@ function scalernews_excerpt_more( $more ) {
 	return '&hellip;';
 }
 add_filter( 'excerpt_more', 'scalernews_excerpt_more' );
+
+/**
+ * Remove 'Editor' (Site Editor / Design) from Appearance menu if it appears.
+ */
+function scalernews_remove_site_editor_menu() {
+	remove_submenu_page( 'themes.php', 'site-editor.php?path=/patterns' );
+	remove_submenu_page( 'themes.php', 'site-editor.php' );
+}
+add_action( 'admin_menu', 'scalernews_remove_site_editor_menu', 999 );
+
+/**
+ * Enable/Disable Native Lazy Loading based on Customizer setting.
+ */
+function scalernews_lazy_load_images( $default, $tag_name, $context ) {
+	if ( 'img' === $tag_name ) {
+		return get_theme_mod( 'scalernews_lazy_load', true );
+	}
+	return $default;
+}
+add_filter( 'wp_lazy_loading_enabled', 'scalernews_lazy_load_images', 10, 3 );

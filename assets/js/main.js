@@ -65,6 +65,26 @@
 			} );
 		} );
 
+		// Scroll to Top Button Logic
+		const scrollToTopBtn = document.getElementById( 'scroll-to-top' );
+		if ( scrollToTopBtn ) {
+			window.addEventListener( 'scroll', function() {
+				if ( window.scrollY > 300 ) {
+					scrollToTopBtn.classList.add( 'is-visible' );
+				} else {
+					scrollToTopBtn.classList.remove( 'is-visible' );
+				}
+			} );
+
+			scrollToTopBtn.addEventListener( 'click', function( e ) {
+				e.preventDefault();
+				window.scrollTo( {
+					top: 0,
+					behavior: 'smooth'
+				} );
+			} );
+		}
+
 		// Remove no-js class
 		document.documentElement.classList.remove( 'no-js' );
 		document.documentElement.classList.add( 'js' );

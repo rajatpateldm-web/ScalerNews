@@ -116,6 +116,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 do_action( 'scalernews_after_site' );
 ?>
 
+<?php if ( get_theme_mod( 'scalernews_totop_enable', true ) ) : ?>
+	<?php
+		$icon_choice = get_theme_mod( 'scalernews_totop_icon', 'arrow-up' );
+		$icon_svg    = '';
+
+		switch ( $icon_choice ) {
+			case 'chevron-up':
+				$icon_svg = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>';
+				break;
+			case 'angle-up':
+				$icon_svg = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15L12 9L6 15"/></svg>';
+				break;
+			case 'long-arrow':
+				$icon_svg = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>';
+				break;
+			case 'arrow-up':
+			default:
+				$icon_svg = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>';
+				break;
+		}
+	?>
+	<a href="#" id="scroll-to-top" class="sn-scroll-to-top" aria-label="<?php esc_attr_e( 'Scroll to top', 'scalernews' ); ?>">
+		<?php echo $icon_svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	</a>
+<?php endif; ?>
+
 <?php wp_footer(); ?>
 </body>
 </html>

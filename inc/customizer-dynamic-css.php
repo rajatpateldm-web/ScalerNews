@@ -84,6 +84,49 @@ function scalernews_dynamic_css() {
 		$css .= '@media(min-width: 768px) { .sn-footer__widgets { grid-template-columns: repeat(' . absint( $footer_cols ) . ', 1fr); } }';
 	}
 
+	// Scroll to Top Dynamic CSS
+	if ( get_theme_mod( 'scalernews_totop_enable', true ) ) {
+		$totop_size   = get_theme_mod( 'scalernews_totop_size', 40 );
+		$totop_icon_sz= get_theme_mod( 'scalernews_totop_icon_size', 24 );
+		$totop_pos    = get_theme_mod( 'scalernews_totop_position', 'right' );
+		$totop_side   = get_theme_mod( 'scalernews_totop_offset_side', 20 );
+		$totop_bottom = get_theme_mod( 'scalernews_totop_offset_bottom', 20 );
+		$totop_vis    = get_theme_mod( 'scalernews_totop_visibility', 'all' );
+		$totop_bg     = get_theme_mod( 'scalernews_totop_bg_color', '' );
+		$totop_color  = get_theme_mod( 'scalernews_totop_icon_color', '' );
+
+		$css .= '.sn-scroll-to-top {';
+		$css .= 'width: ' . absint( $totop_size ) . 'px;';
+		$css .= 'height: ' . absint( $totop_size ) . 'px;';
+		$css .= 'bottom: ' . absint( $totop_bottom ) . 'px;';
+		
+		if ( ! empty( $totop_bg ) ) {
+			$css .= 'background-color: ' . esc_attr( $totop_bg ) . ';';
+		}
+		if ( ! empty( $totop_color ) ) {
+			$css .= 'color: ' . esc_attr( $totop_color ) . ';';
+		}
+		
+		if ( 'left' === $totop_pos ) {
+			$css .= 'left: ' . absint( $totop_side ) . 'px; right: auto;';
+		} else {
+			$css .= 'right: ' . absint( $totop_side ) . 'px; left: auto;';
+		}
+		$css .= '}';
+		
+		// Icon Size inside the button
+		$css .= '.sn-scroll-to-top svg { width: ' . absint( $totop_icon_sz ) . 'px; height: ' . absint( $totop_icon_sz ) . 'px; }';
+
+		// Visibility logic
+		if ( 'desktop' === $totop_vis ) {
+			// Hide on mobile/tablet
+			$css .= '@media(max-width: 768px) { .sn-scroll-to-top { display: none !important; } }';
+		} elseif ( 'mobile' === $totop_vis ) {
+			// Hide on desktop
+			$css .= '@media(min-width: 769px) { .sn-scroll-to-top { display: none !important; } }';
+		}
+	}
+
 	echo '<style id="scalernews-custom-dynamic-css">' . $css . '</style>'; // phpcs:ignore
 }
 add_action( 'wp_head', 'scalernews_dynamic_css', 99 );
