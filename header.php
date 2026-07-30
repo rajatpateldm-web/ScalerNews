@@ -84,7 +84,8 @@ if (!defined('ABSPATH')) {
 							if ($description):
 								?>
 								<p class="sn-header__tagline" style="margin: 0; font-size: 0.85em; opacity: 0.8;">
-									<?php echo esc_html($description); ?></p>
+									<?php echo esc_html($description); ?>
+								</p>
 							<?php endif; ?>
 						</div>
 					</div>
@@ -106,12 +107,15 @@ if (!defined('ABSPATH')) {
 					</svg>
 					<?php esc_html_e('Menu', 'scalernews'); ?>
 				</button>
-				<ul id="primary-menu" class="sn-nav__menu">
-					<li><a href="<?php echo esc_url(home_url('/')); ?>">Home</a></li>
-					<li><a href="#">Latest News</a></li>
-					<li><a href="#">Categories</a></li>
-					<li><a href="#">Contact</a></li>
-				</ul>
+				<?php
+				wp_nav_menu(array(
+					'theme_location' => 'primary',
+					'menu_id' => 'primary-menu',
+					'menu_class' => 'sn-nav__menu',
+					'container' => false,
+					'fallback_cb' => 'scalernews_primary_menu_fallback',
+				));
+				?>
 			</div>
 		</nav><!-- #site-navigation -->
 
