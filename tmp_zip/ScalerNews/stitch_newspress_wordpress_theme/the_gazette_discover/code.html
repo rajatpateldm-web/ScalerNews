@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>THE GAZETTE | Discovery &amp; Search</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400..900;1,400..900&amp;family=Libre+Franklin:ital,wght@0,100..900;1,100..900&amp;family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#1a2b3c",
+                        "secondary-fixed": "#ffdad6",
+                        "surface-variant": "#e1e3e4",
+                        "on-tertiary-fixed-variant": "#3c475a",
+                        "on-secondary-fixed-variant": "#930010",
+                        "on-surface-variant": "#44474c",
+                        "background": "#f8f9fa",
+                        "surface-container-low": "#f3f4f5",
+                        "primary-fixed-dim": "#b7c8de",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#1f2a3b",
+                        "surface-container": "#edeeef",
+                        "surface-bright": "#f8f9fa",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#8691a6",
+                        "primary-fixed": "#d2e4fb",
+                        "secondary-container": "#da3433",
+                        "on-primary": "#ffffff",
+                        "surface": "#f8f9fa",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#b7c8de",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#d9dadb",
+                        "tertiary": "#0a1526",
+                        "on-primary-fixed-variant": "#38485a",
+                        "on-primary-container": "#8192a7",
+                        "surface-container-high": "#e7e8e9",
+                        "on-primary-fixed": "#0b1d2d",
+                        "inverse-on-surface": "#f0f1f2",
+                        "tertiary-fixed": "#d8e3fa",
+                        "on-tertiary-fixed": "#111c2c",
+                        "outline-variant": "#c4c6cd",
+                        "secondary-fixed-dim": "#ffb3ac",
+                        "on-secondary-container": "#fffbff",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#b6171e",
+                        "surface-tint": "#4f6073",
+                        "error": "#ba1a1a",
+                        "outline": "#74777d",
+                        "on-surface": "#191c1d",
+                        "tertiary-fixed-dim": "#bcc7dd",
+                        "on-secondary-fixed": "#410003",
+                        "inverse-surface": "#2e3132",
+                        "on-background": "#191c1d",
+                        "primary": "#041627"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "container-max": "1280px",
+                        "stack-xl": "64px",
+                        "margin-mobile": "16px",
+                        "stack-lg": "32px",
+                        "margin-desktop": "32px",
+                        "stack-sm": "8px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Bodoni Moda"],
+                        "body-lg": ["Libre Franklin"],
+                        "headline-md": ["Bodoni Moda"],
+                        "label-caps": ["Archivo Narrow"],
+                        "body-md": ["Libre Franklin"],
+                        "headline-lg-mobile": ["Bodoni Moda"],
+                        "display-xl": ["Bodoni Moda"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-md": ["28px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "display-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface border-b-2 border-primary dark:border-primary-fixed-dim docked full-width top-0 z-50 fixed w-full">
+<div class="flex flex-col w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center gap-4">
+<button class="hover:bg-surface-variant transition-colors p-2 rounded">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:text-headline-lg uppercase tracking-tighter font-bold text-primary dark:text-primary-fixed-dim">
+                        THE GAZETTE
+                    </h1>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<nav class="flex gap-6">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">POLITICS</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">TECH</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">SPORTS</a>
+</nav>
+<button class="bg-primary text-on-primary px-4 py-2 font-label-caps text-label-caps tracking-widest hover:opacity-90 active:scale-95 transition-all">
+                        SUBSCRIBE
+                    </button>
+</div>
+<div class="md:hidden">
+<span class="material-symbols-outlined text-primary">search</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Breaking News Ticker -->
+<div class="bg-secondary text-on-secondary pt-16">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop h-10 flex items-center overflow-hidden">
+<span class="font-label-caps text-label-caps bg-primary text-on-primary px-2 py-1 mr-4 shrink-0">BREAKING</span>
+<div class="whitespace-nowrap flex items-center gap-8 animate-marquee">
+<span class="font-label-caps text-label-caps italic">GLOBAL MARKETS REACH RECORD HIGHS AMID TECH SURGE — NEWS ALERT — PEACE TALKS RESUME IN BRUSSELS — NEWS ALERT — NEW CLIMATE ACCORD SIGNED — </span>
+</div>
+</div>
+</div>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-stack-lg pb-stack-xl">
+<!-- Search & Discovery Header -->
+<section class="mt-stack-lg">
+<div class="relative max-w-3xl">
+<div class="relative group">
+<input class="w-full bg-surface-container-lowest border-2 border-primary py-4 pl-14 pr-6 font-body-lg text-body-lg focus:ring-0 focus:border-secondary transition-all outline-none" placeholder="Search archive, authors, or topics..." type="text"/>
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary text-3xl group-focus:text-secondary transition-colors">search</span>
+</div>
+<div class="mt-stack-md flex flex-wrap items-center gap-3">
+<span class="font-label-caps text-label-caps text-on-surface-variant">TRENDING:</span>
+<a class="font-label-caps text-label-caps text-primary border-b-2 border-primary hover:text-secondary hover:border-secondary transition-colors" href="#">ELECTIONS 2024</a>
+<a class="font-label-caps text-label-caps text-primary border-b-2 border-primary hover:text-secondary hover:border-secondary transition-colors" href="#">AI ETHICS</a>
+<a class="font-label-caps text-label-caps text-primary border-b-2 border-primary hover:text-secondary hover:border-secondary transition-colors" href="#">QUANTUM COMPUTING</a>
+<a class="font-label-caps text-label-caps text-primary border-b-2 border-primary hover:text-secondary hover:border-secondary transition-colors" href="#">SPACE EXPLORATION</a>
+</div>
+</div>
+</section>
+<!-- Search Content Grid -->
+<div class="mt-stack-xl grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Main Results (8 Columns) -->
+<div class="md:col-span-8 space-y-stack-lg">
+<!-- Filter Bar -->
+<div class="flex items-center justify-between pb-stack-sm border-b border-outline-variant mb-stack-md">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant">428 RESULTS FOUND</h2>
+<div class="flex gap-4">
+<select class="bg-transparent border-none font-label-caps text-label-caps text-primary cursor-pointer focus:ring-0 p-0">
+<option>MOST RECENT</option>
+<option>RELEVANCE</option>
+<option>OLDEST</option>
+</select>
+<select class="bg-transparent border-none font-label-caps text-label-caps text-primary cursor-pointer focus:ring-0 p-0">
+<option>ALL CATEGORIES</option>
+<option>POLITICS</option>
+<option>TECH</option>
+<option>BUSINESS</option>
+</select>
+</div>
+</div>
+<!-- Result Card 1 -->
+<article class="flex flex-col md:flex-row gap-gutter group cursor-pointer border-b border-outline-variant pb-stack-lg">
+<div class="w-full md:w-1/3 aspect-[4/3] relative overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A moody, high-contrast aerial photograph of a sprawling modern metropolis at twilight, featuring sharp architectural lines and deep blue shadows. The scene is illuminated by glowing streaks of city lights in crisp white and deep red, creating an urgent, authoritative atmosphere consistent with a prestigious news brand. The visual style is minimal and high-definition, focusing on structural geometry." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCa0Y8S1LTRBkCAiemaKxihSGIOdtYMKe3LLbPuZmD_ZY9Gx4ydZ5GTbK7VbkODTXLGlzRBpDZUGCbEaP-B5Oa2ggoo3MbCU6Rfk9q5oVqwljK-SY464vNE7vDFQSEs2ewflMObrm7nCioPEeAPZFaw_JqdewwV93vBQEa_2RhXqUrGyTTK0kmBWgx_I-l2KMH2EXuZfVKsKGTq07uSyJ-xXzxLZ61VN7ltyV2N0Y4AZTzRXy6Ao-GKfQ"/>
+</div>
+<div class="w-full md:w-2/3">
+<div class="flex items-center gap-2 mb-2">
+<span class="font-label-caps text-label-caps text-secondary">POLITICS</span>
+<span class="text-on-surface-variant opacity-40">•</span>
+<time class="font-label-caps text-label-caps text-on-surface-variant">2 HOURS AGO</time>
+</div>
+<h3 class="font-headline-md text-headline-md leading-tight group-hover:text-secondary transition-colors mb-2">The Shifting Paradigm: How Modern Alliances are Redefining Global Trade</h3>
+<p class="text-on-surface-variant font-body-md line-clamp-2">As international relations enter a new era of complexity, trade corridors across the Atlantic are seeing unprecedented shifts in legislative oversight and economic priority.</p>
+</div>
+</article>
+<!-- Result Card 2 -->
+<article class="flex flex-col md:flex-row gap-gutter group cursor-pointer border-b border-outline-variant pb-stack-lg">
+<div class="w-full md:w-1/3 aspect-[4/3] relative overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A macro photograph of a semiconductor wafer, showing intricate patterns of micro-circuitry in a sterile, high-tech environment. The lighting is cold and clinical, with sharp highlights reflecting off the silicon surface. The color palette is dominated by deep navy and metallic silvers, with a single focused point of light conveying precision and technological innovation for a sophisticated editorial design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHHyXLKdTaM_teyrXhsAn3Fva_9Lqd2V92SgUL9JhcDv1bdqWOCg0muz5Zv-C8DsJQHxW_F6Cp2qACOLCNhFFOPOvSafY-ZjdOFswsVYGotOcnXr-8CneqBfE-ejyW45gqS6IDLuSMUUuPaAYp1EkInsdf9aeMy2AT5zhOP7PosaTRuwydqg8Cl0wT3aZvse-_ibp8WloblS2-oX4-bwj7ZJHoFV3ywlnLswGkAKNQ7LNos8KP2CdBmw"/>
+</div>
+<div class="w-full md:w-2/3">
+<div class="flex items-center gap-2 mb-2">
+<span class="font-label-caps text-label-caps text-secondary">TECH</span>
+<span class="text-on-surface-variant opacity-40">•</span>
+<time class="font-label-caps text-label-caps text-on-surface-variant">5 HOURS AGO</time>
+</div>
+<h3 class="font-headline-md text-headline-md leading-tight group-hover:text-secondary transition-colors mb-2">Quantum Supremacy: The Next Frontier in Cryptography</h3>
+<p class="text-on-surface-variant font-body-md line-clamp-2">Inside the labs racing to build the first truly secure communication network against the backdrop of an impending quantum computing revolution.</p>
+</div>
+</article>
+<!-- Result Card 3 -->
+<article class="flex flex-col md:flex-row gap-gutter group cursor-pointer border-b border-outline-variant pb-stack-lg">
+<div class="w-full md:w-1/3 aspect-[4/3] relative overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A striking minimalist portrait of an anonymous figure standing against a monolithic concrete wall in harsh afternoon sunlight. The composition is defined by deep black shadows and bright white highlights, evoking a sense of mystery and journalistic gravity. The aesthetic is clean, objective, and authoritative, utilizing a monochromatic palette with subtle texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIak505vnWd0x0LpeQT54dYDZF9cykqUn_rhL3M2SSMvv7GgCYBX-gvGlazthBQ96TuvgAwzGSkzaENaDAp9huwv2FAPkTWcHXUvfCq-M3gQKt2-k6DzVNQg8dFeumbUFTYqqgrID4vlQXlczvp9oCxzBkmyvV--NHqiQ7uiTW2na-QM8uA-6J-A0j2sO0n40liPq4b5WuT3xxzJpILCAIZjkzEzvVUzwv3ZiurtE61CkaRKA7_4F2mQ"/>
+</div>
+<div class="w-full md:w-2/3">
+<div class="flex items-center gap-2 mb-2">
+<span class="font-label-caps text-label-caps text-secondary">CULTURE</span>
+<span class="text-on-surface-variant opacity-40">•</span>
+<time class="font-label-caps text-label-caps text-on-surface-variant">YESTERDAY</time>
+</div>
+<h3 class="font-headline-md text-headline-md leading-tight group-hover:text-secondary transition-colors mb-2">The Silence of Icons: A Retrospective on 20th Century Architecture</h3>
+<p class="text-on-surface-variant font-body-md line-clamp-2">How the brutalist movement is finding a second life in digital spaces, and why it matters for our understanding of public infrastructure.</p>
+</div>
+</article>
+<button class="w-full py-4 border-2 border-primary font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-all tracking-widest">
+                    LOAD MORE STORIES
+                </button>
+</div>
+<!-- Sidebar (4 Columns) -->
+<aside class="md:col-span-4 space-y-stack-xl">
+<!-- Recommended for You -->
+<section class="bg-surface-container-low p-6 border-t-4 border-primary">
+<h2 class="font-label-caps text-label-caps mb-stack-md flex items-center justify-between">
+                        RECOMMENDED FOR YOU
+                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</h2>
+<div class="space-y-6">
+<div class="group cursor-pointer">
+<h4 class="font-headline-md text-[20px] leading-tight mb-2 group-hover:underline">The Future of Central Banking in a Decentralized World</h4>
+<p class="font-label-caps text-[10px] text-on-surface-variant">FINANCE • 10 MIN READ</p>
+</div>
+<div class="group cursor-pointer">
+<h4 class="font-headline-md text-[20px] leading-tight mb-2 group-hover:underline">Climate Adaptation: Lessons from the Netherlands</h4>
+<p class="font-label-caps text-[10px] text-on-surface-variant">SCIENCE • 15 MIN READ</p>
+</div>
+<div class="group cursor-pointer">
+<h4 class="font-headline-md text-[20px] leading-tight mb-2 group-hover:underline">The Psychology of Information War in the Digital Age</h4>
+<p class="font-label-caps text-[10px] text-on-surface-variant">MEDIA • 8 MIN READ</p>
+</div>
+</div>
+</section>
+<!-- Visual Discovery (Bento Element) -->
+<section>
+<h2 class="font-label-caps text-label-caps mb-stack-sm text-on-surface-variant">PHOTO DISCOVERY</h2>
+<div class="grid grid-cols-2 gap-2">
+<div class="aspect-square bg-surface-variant relative overflow-hidden group">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-transform duration-700 group-hover:scale-110" data-alt="A high-contrast photograph of architectural details, specifically sharp geometric angles of a glass and steel skyscraper reflecting a clear sky. The lighting is vibrant and direct, emphasizing texture and form. The style is objective and sophisticated, following a modern editorial aesthetic with deep blues and neutral tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZoim3IwDbPO13Ic6-btP-puG-juLh8Uoby6tQ5SdBa_ajFJvlf8fVCciuUcX1tHsRzc9ovkbUMZCmBl1pn-aARSStPi6Y0HUsrKwuoIFUMECP2q8y_obtA-7rtin2SZUOjH3l1wPraViaBKVH1Fs3Zd4cEMh7xdS3X4QLDFqXnufQNzP6TtlToecxKn1kDkzoQr88IqAhyaGLuwdw-lfAgV9rbcoO7fNXjx42S7T4GlT41za-lw4q5Q"/>
+</div>
+<div class="aspect-square bg-surface-variant relative overflow-hidden group">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-transform duration-700 group-hover:scale-110" data-alt="A minimalist overhead view of a large, perfectly circular wooden table in a dimly lit conference room. A single, focused spotlight illuminates the center, creating a stark contrast between the bright wood and deep surrounding shadows. The mood is urgent and professional, suggesting a place where important decisions are made." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCekcsrzbbNVZ8vo1sjgzsfpakemOVu2OqB1AgJldEpNzfs94wn16XUFrOSw7o8bbFnFYANoowx5LuuH12n0LG1C0SLzbUd1CcujfXghnUqNgN1oq1LNd_MHd_URfkGhL6a4S9213zPqMzJ0hpG8AXsg42V7T9FnujIYvxdIphT6Q4CumyqYANDiwwmZm2PpQwp96IoJCnM7yH4v79MIfgpF5kXKn9ibWDMJU2i0eIaBhBYIlNPY3LZoA"/>
+</div>
+<div class="aspect-square bg-surface-variant relative overflow-hidden group">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-transform duration-700 group-hover:scale-110" data-alt="A long-exposure photograph of light trails from a high-speed train moving through a tunnel. The colors are limited to electric whites and deep reds against a dark, industrial gray background. The feeling is one of speed and technological progress, rendered with sharp clarity for a high-end journalistic context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUTPneDq7oZa8ukL_RIbzPGzNVks5FD7ASP96zouItasLQkAYrxK6522yabyRgZ8f95EFDHxYnAaBNh-S1oCYdYIsRRc5YKu9nEGwrp_I7d2wb3Mfxbt-VfLbyOfoRS-22tw6a4Qw2xSnnUC_Jh7ALQFHGjtV2UXsjphB7rqinMnEq0Rnrq0neUKSRJ4mSIXpbW4tmcIKouXCimuLBhQrcZCDkcrM8K7wSAv77miDr5NHigmjvI4ZFKQ"/>
+</div>
+<div class="aspect-square bg-surface-variant relative overflow-hidden group">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-transform duration-700 group-hover:scale-110" data-alt="A clean, minimalist shot of a single printed newspaper lying on a white marble surface next to a pair of luxury spectacles and a cup of black coffee. Soft morning light creates gentle shadows. The palette is dominated by off-whites, blacks, and subtle grays, embodying an air of sophisticated intellectual pursuit." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiFI_OGF6jOQf0x1APtf1CJn9M2zLWNzI67y3934sp1awuPYllR6OU8Fg9N3R-_9jlSVmFnEC5jYwMuAZTf2citDfV8j5MKIMXK8JnR_KKaX3YYudlKJ7JHFp_7rj6GitmizsH0boJeXHFyqyIo3E9-iSijuwMApKUVLZnzLw2cs1ck9Wx4LvUHwOefiqm2Ljy3q-260ik5-Efa4vwSRHfM9WJiXDfJXYhAH-VoUYv0VlAqpjP9ORi2g"/>
+</div>
+</div>
+</section>
+<!-- Newsletter Card -->
+<section class="bg-primary text-on-primary p-6">
+<h3 class="font-headline-md text-headline-md mb-2">The Evening Brief</h3>
+<p class="font-body-md text-primary-fixed-dim mb-4">The 5 things you need to know to end your day. Delivered at 6 PM.</p>
+<input class="w-full bg-primary-container border border-primary-fixed-dim px-4 py-2 text-white placeholder:text-on-primary-container mb-3 outline-none focus:border-secondary transition-colors" placeholder="email@address.com" type="email"/>
+<button class="w-full bg-secondary text-on-secondary font-label-caps text-label-caps py-3 hover:bg-secondary-container transition-colors">SIGN UP</button>
+</section>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-primary dark:bg-tertiary border-t-4 border-secondary dark:border-secondary-container w-full">
+<div class="flex flex-col md:flex-row justify-between items-center py-stack-xl px-margin-desktop max-w-container-max mx-auto">
+<div class="mb-stack-md md:mb-0">
+<h2 class="font-headline-md text-headline-md text-on-primary dark:text-on-tertiary font-bold uppercase tracking-tighter">THE GAZETTE</h2>
+<p class="font-label-caps text-label-caps text-primary-fixed-dim mt-1">© 2024 THE GAZETTE. ALL RIGHTS RESERVED.</p>
+</div>
+<nav class="flex gap-8">
+<a class="font-body-md text-body-md text-surface-variant hover:text-secondary-fixed transition-colors opacity-80" href="#">About</a>
+<a class="font-body-md text-body-md text-surface-variant hover:text-secondary-fixed transition-colors opacity-80" href="#">Privacy</a>
+<a class="font-body-md text-body-md text-surface-variant hover:text-secondary-fixed transition-colors opacity-80" href="#">Contact</a>
+<a class="font-body-md text-body-md text-surface-variant hover:text-secondary-fixed transition-colors opacity-80" href="#">Archive</a>
+</nav>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface dark:bg-surface-container-low border-t border-outline-variant flex justify-around items-center h-16 px-4">
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-70" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-label-caps text-[10px]">Discover</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-70" href="#">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="font-label-caps text-[10px]">Saved</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-70" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-[10px]">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions and atmospheric effects
+        document.addEventListener('DOMContentLoaded', () => {
+            const marquee = document.querySelector('.animate-marquee');
+            // Duplicate content for seamless loop
+            marquee.innerHTML += marquee.innerHTML;
+            
+            let pos = 0;
+            function updateMarquee() {
+                pos -= 0.5;
+                if (pos <= -marquee.offsetWidth / 2) pos = 0;
+                marquee.style.transform = `translateX(${pos}px)`;
+                requestAnimationFrame(updateMarquee);
+            }
+            updateMarquee();
+
+            // Intersection Observer for fade-in effect
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        entry.target.classList.remove('opacity-0', 'translate-y-4');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('article').forEach(el => {
+                el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-4');
+                observer.observe(el);
+            });
+        });
+    </script>
+</body></html>

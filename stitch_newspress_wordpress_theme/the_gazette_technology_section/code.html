@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TECHNOLOGY - THE GAZETTE</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400..900;1,400..900&amp;family=Libre+Franklin:ital,wght@0,100..900;1,100..900&amp;family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#1a2b3c",
+                    "secondary-fixed": "#ffdad6",
+                    "surface-variant": "#e1e3e4",
+                    "on-tertiary-fixed-variant": "#3c475a",
+                    "on-secondary-fixed-variant": "#930010",
+                    "on-surface-variant": "#44474c",
+                    "background": "#f8f9fa",
+                    "surface-container-low": "#f3f4f5",
+                    "primary-fixed-dim": "#b7c8de",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#1f2a3b",
+                    "surface-container": "#edeeef",
+                    "surface-bright": "#f8f9fa",
+                    "on-error": "#ffffff",
+                    "on-tertiary-container": "#8691a6",
+                    "primary-fixed": "#d2e4fb",
+                    "secondary-container": "#da3433",
+                    "on-primary": "#ffffff",
+                    "surface": "#f8f9fa",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#b7c8de",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-dim": "#d9dadb",
+                    "tertiary": "#0a1526",
+                    "on-primary-fixed-variant": "#38485a",
+                    "on-primary-container": "#8192a7",
+                    "surface-container-high": "#e7e8e9",
+                    "on-primary-fixed": "#0b1d2d",
+                    "inverse-on-surface": "#f0f1f2",
+                    "tertiary-fixed": "#d8e3fa",
+                    "on-tertiary-fixed": "#111c2c",
+                    "outline-variant": "#c4c6cd",
+                    "secondary-fixed-dim": "#ffb3ac",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#b6171e",
+                    "surface-tint": "#4f6073",
+                    "error": "#ba1a1a",
+                    "outline": "#74777d",
+                    "on-surface": "#191c1d",
+                    "tertiary-fixed-dim": "#bcc7dd",
+                    "on-secondary-fixed": "#410003",
+                    "inverse-surface": "#2e3132",
+                    "on-background": "#191c1d",
+                    "primary": "#041627"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "container-max": "1280px",
+                    "stack-xl": "64px",
+                    "margin-mobile": "16px",
+                    "stack-lg": "32px",
+                    "margin-desktop": "32px",
+                    "stack-sm": "8px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Bodoni Moda"],
+                    "body-lg": ["Libre Franklin"],
+                    "headline-md": ["Bodoni Moda"],
+                    "label-caps": ["Archivo Narrow"],
+                    "body-md": ["Libre Franklin"],
+                    "headline-lg-mobile": ["Bodoni Moda"],
+                    "display-xl": ["Bodoni Moda"]
+            },
+            "fontSize": {
+                    "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["28px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "display-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f8f9fa;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .breaking-ticker {
+            background-color: #d32f2f;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .ticker-scroll {
+            display: inline-block;
+            animation: scroll 30s linear infinite;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #041627;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface selection:bg-primary selection:text-on-primary">
+<!-- BREAKING NEWS TICKER -->
+<div class="breaking-ticker py-2 text-white font-label-caps flex items-center">
+<div class="px-4 border-r-2 border-white font-bold bg-[#d32f2f] z-10">LATEST TECH</div>
+<div class="ticker-scroll">
+<span class="px-8">QUANTUM COMPUTING BREAKTHROUGH ANNOUNCED IN GENEVA</span>
+<span class="px-8">SILICON VALLEY TITANS MEET TO DISCUSS AI ETHICS FRAMEWORK</span>
+<span class="px-8">NEW SMARTPHONE BATTERY TECHNOLOGY PROMISES 7-DAY CHARGE</span>
+<span class="px-8">MARKET ALERT: SEMICONDUCTOR STOCK SURGE DRIVES INDEX RECORD</span>
+</div>
+</div>
+<!-- TOP APP BAR -->
+<header class="bg-surface docked full-width top-0 z-50 border-b-2 border-primary">
+<div class="flex flex-col w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-4">
+<div class="flex justify-between items-center w-full">
+<button class="material-symbols-outlined text-primary hover:bg-surface-variant transition-colors p-2 rounded" onclick="toggleDrawer()">menu</button>
+<h1 class="font-headline-lg text-headline-lg md:text-[48px] uppercase tracking-tighter text-primary font-bold">THE GAZETTE</h1>
+<button class="bg-primary text-on-primary px-6 py-2 font-label-caps hover:opacity-80 transition-all">SUBSCRIBE</button>
+</div>
+</div>
+</header>
+<!-- SECTION HEADER & FILTERS -->
+<div class="bg-surface-container-low border-b border-outline-variant">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-stack-md">
+<div>
+<span class="font-label-caps text-secondary font-bold border-b-2 border-secondary mb-2 inline-block">SECTION</span>
+<h2 class="font-display-xl text-display-xl md:text-[80px] text-primary leading-none">TECHNOLOGY</h2>
+</div>
+<!-- Sub-category filters -->
+<nav class="flex gap-4 overflow-x-auto pb-2 custom-scrollbar">
+<a class="font-label-caps text-primary border-b-2 border-primary whitespace-nowrap" href="#">ALL TECH</a>
+<a class="font-label-caps text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap" href="#">ARTIFICIAL INTELLIGENCE</a>
+<a class="font-label-caps text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap" href="#">GADGETS</a>
+<a class="font-label-caps text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap" href="#">COMPUTING</a>
+<a class="font-label-caps text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap" href="#">FUTURE TECH</a>
+<a class="font-label-caps text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap" href="#">SECURITY</a>
+</nav>
+</div>
+</div>
+</div>
+<!-- MAIN CONTENT CANVAS -->
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-xl">
+<!-- FEATURED BENTO SECTION -->
+<section class="bento-grid mb-stack-xl">
+<!-- Large Featured Card (8 columns) -->
+<article class="col-span-12 lg:col-span-8 group cursor-pointer border border-outline-variant bg-surface hover:bg-surface-container transition-colors">
+<div class="relative overflow-hidden h-[400px] md:h-[500px]">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A high-contrast cinematic shot of a futuristic neural processor chip glowing with blue and white energy pulses. The setting is a clean, hyper-modern laboratory with brushed metal surfaces and soft ambient light. The photography style is sharp, editorial, and professional, reflecting a high-end technology journal aesthetic with a sophisticated navy and light gray color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCByEDZCqB3kmn59b7RpjpKgRDI0QUXK3NiEVXwHO1-SHe2WO8gMAwOCbLVlnYncTv_Q-m4wv3OUOBmy0u-YiDfW3dV3y5lkolE2trtzWv0GeRsfPj9ZzgCxbX_j_U0h2q4Br-Luv5qx1fDIHX-PNLjfzhchu3iUtVzRuip1gFria93GGNbPfst3KOxWBq2-2ejWmRSX-N8a_ucDhy7uvn3NPsG9ZIK6Pe_4S1qlBdxhtoOSqMsYz01RQ"/>
+<div class="absolute top-4 left-4 bg-primary text-white font-label-caps px-4 py-1">COVER STORY</div>
+</div>
+<div class="p-stack-lg">
+<div class="flex items-center gap-4 mb-4">
+<span class="font-label-caps text-secondary font-extrabold uppercase">Artificial Intelligence</span>
+<span class="text-on-surface-variant text-sm font-body-md uppercase tracking-widest">12 Min Read</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg md:text-[48px] text-primary mb-4 leading-tight group-hover:underline">The Silicon Mind: How Generative AI is Rewriting the Laws of Economic Productivity.</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant line-clamp-3">In a world obsessed with efficiency, the emergence of multi-modal large language models is doing more than just automating tasks—it is fundamentally altering the value of human cognition in the global marketplace.</p>
+</div>
+</article>
+<!-- Secondary Featured Cards (4 columns) -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-gutter">
+<article class="p-stack-md border border-outline-variant bg-surface-container-lowest group cursor-pointer hover:bg-surface transition-colors h-full">
+<div class="aspect-video mb-4 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A sleek, minimalist handheld gaming device with a translucent glass display sitting on a dark obsidian surface. The lighting is dramatic and focused, highlighting the sharp edges and sophisticated texture of the device. The color scheme is dominated by deep navy tones with bright white highlights, creating a sense of premium electronic craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBB02pQvywz3WaOCgJZ80-24fiFDV4c9J0MeJAzKGCm2yGKQ3PEQx_xrxuPAsiwd8dCV2RqTc-xK-WnS4uIjwdDcton8VtyycCInx-FS2XnWbDzPIK8ohdhmbD6t-cHKdKWKUsQVeGDAB4Wxl-s1x5DFFHD9AXWBm3W0unwH7T4r-KwEoRu4LudeLC7kT-BsE0gX0sp6bsqOZrZIW-PGKXKhD9dEm5IqFclKdpMNMwG5ryVWaxwqMJ4mg"/>
+</div>
+<span class="font-label-caps text-primary border-b-2 border-primary mb-2 inline-block">GADGETS</span>
+<h4 class="font-headline-md text-headline-md group-hover:text-secondary transition-colors">The End of the Smartphone Era? A Look at Post-Mobile Hardware.</h4>
+<p class="mt-2 text-on-surface-variant font-body-md line-clamp-2">Wearables and AR glasses are finally ready to challenge the dominance of the glass slab in your pocket.</p>
+</article>
+<article class="p-stack-md border border-outline-variant bg-surface-container-lowest group cursor-pointer hover:bg-surface transition-colors h-full">
+<span class="font-label-caps text-primary border-b-2 border-primary mb-2 inline-block">COMPUTING</span>
+<h4 class="font-headline-md text-headline-md group-hover:text-secondary transition-colors">Quantum Supremacy vs. Quantum Utility: The Road to Practicality.</h4>
+<p class="mt-2 text-on-surface-variant font-body-md line-clamp-2">While researchers hit new milestones, the industry is shifting focus toward error-correction and real-world usage.</p>
+<div class="mt-4 flex items-center justify-between text-xs font-label-caps text-outline">
+<span>BY ELIAS VANCE</span>
+<span>4 HOURS AGO</span>
+</div>
+</article>
+</div>
+</section>
+<!-- SUB-SECTION: THE FEED (List view) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-stack-xl">
+<!-- Main News List -->
+<section class="lg:col-span-8" id="article-feed">
+<div class="flex items-center justify-between border-b-4 border-primary mb-stack-lg pb-2">
+<h3 class="font-label-caps text-xl font-bold">LATEST UPDATES</h3>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+<span class="font-label-caps">SORT BY NEWEST</span>
+</div>
+</div>
+<div class="flex flex-col">
+<!-- Standard List Item -->
+<article class="flex flex-col md:flex-row gap-6 py-stack-lg border-b border-outline-variant group cursor-pointer">
+<div class="w-full md:w-1/3 aspect-[4/3] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A wide-angle aerial view of a massive data center complex nestled in a snowy Nordic landscape. The architectural lines are sharp and industrial, contrasting with the soft, blue-toned natural environment. The lighting suggests early twilight, with a cold, professional atmosphere and high-key metallic accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcq6hg4hNkNbAHJGzSAg1YCmuaK2Rl5pdgO24Emaj-4AUsyyj8S-7SN9_yF9EHh1okUdPRo4jRVZtnPOK3_7-yqEpy-iDzmFEVGCdYXjNlJxJfnHXNrbAtZlC3NNX2MS1SRE__t3BugXM4S2rHr0_2Pd-HR9elDs7Pt0AACB7mxqeKRSJrbsE0_xs9i7Hzem8lFxi8Q9FwUEOO8ubzEcp9BVDynzAj11n72LrIRsquSQhlmNjVIl6yMg"/>
+</div>
+<div class="w-full md:w-2/3">
+<span class="font-label-caps text-secondary uppercase font-bold">Infrastructure</span>
+<h4 class="font-headline-md text-headline-md mt-2 group-hover:underline">Sustainable Clouds: The New Era of Carbon-Neutral Data Centers.</h4>
+<p class="mt-2 text-on-surface-variant font-body-md line-clamp-2">How major tech giants are leveraging geothermal energy to power the next generation of server farms.</p>
+<div class="mt-4 flex items-center gap-4 text-xs font-label-caps text-outline">
+<span>8 HOURS AGO</span>
+<span>•</span>
+<span>BY SARAH CHEN</span>
+</div>
+</div>
+</article>
+<article class="flex flex-col md:flex-row gap-6 py-stack-lg border-b border-outline-variant group cursor-pointer">
+<div class="w-full md:w-1/3 aspect-[4/3] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A macro photograph of an advanced biometric eye scanner reflecting a complex digital interface. The iris is vibrant and detailed, while the light-reflecting interface displays delicate data nodes and white glowing text. The overall aesthetic is high-tech, secure, and authoritative, using a palette of deep blues and crisp whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2mAUno3VmOMxYIPfVAvHArDOBa_QjDrGFR9Z280vwtrvFvJmcvFvNfhIGJG0rb4sV5oECPjq6hjQakwfRroQJq4H7P95o0hxVlMe12D2TsbeeBOgAu1rGobQBt7z5N4d0_fREPQvy14LKowzESHIm694E-C9kwfYPLRuK5-sN1TK_KSGSBRSYtJpLaGJaHMKwSx2tb5bIiARD9r5Grl15WojO-aUYhSJWArJYCEqlvxS8PYtjXzz53w"/>
+</div>
+<div class="w-full md:w-2/3">
+<span class="font-label-caps text-secondary uppercase font-bold">Privacy</span>
+<h4 class="font-headline-md text-headline-md mt-2 group-hover:underline">Encryption Wars: Why Security Experts are Alarmed by New Proposals.</h4>
+<p class="mt-2 text-on-surface-variant font-body-md line-clamp-2">The delicate balance between national security and consumer privacy is reaching a breaking point in Brussels.</p>
+<div class="mt-4 flex items-center gap-4 text-xs font-label-caps text-outline">
+<span>12 HOURS AGO</span>
+<span>•</span>
+<span>BY MARKUS VOIGT</span>
+</div>
+</div>
+</article>
+<article class="flex flex-col md:flex-row gap-6 py-stack-lg border-b border-outline-variant group cursor-pointer">
+<div class="w-full md:w-1/3 aspect-[4/3] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A conceptual 3D render of a decentralized web architecture, showing interconnected nodes of light floating in a vast, dark digital space. The style is geometric and abstract, emphasizing structure and connectivity. The lighting is cool-toned with bright white highlights, creating a professional and futuristic mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZxyVtDCeHFx60VWV4EPbJGbw7R_R0bIGpXpGlc9wQyY4W4X5Thb-tjqyxQZfxPUGrolo3uWFSboKpaJhamlBk0mc0A6OvDXpEqPasF3ZixXUBM5nVXMZoeBgG5Ql16TWPdVlh1CL_X4jYG7CB6R1VB_y4Y2BVtse5m9uQ9BvXd9GMjyhisOjS8aBwQO96C9rR2o4OHY7wWZNO1mH1IXkhs3Nkjq5z0Pmhc_ciyaiz9786pT9I-kZDxQ"/>
+</div>
+<div class="w-full md:w-2/3">
+<span class="font-label-caps text-secondary uppercase font-bold">Web3</span>
+<h4 class="font-headline-md text-headline-md mt-2 group-hover:underline">Decentralized Protocols Face Their First Major Stress Test.</h4>
+<p class="mt-2 text-on-surface-variant font-body-md line-clamp-2">As user volumes surge, the scalability of non-custodial networks is being put to the ultimate test by global traffic spikes.</p>
+<div class="mt-4 flex items-center gap-4 text-xs font-label-caps text-outline">
+<span>1 DAY AGO</span>
+<span>•</span>
+<span>BY JAMESON LEE</span>
+</div>
+</div>
+</article>
+</div>
+<!-- Infinite Scroll Indicator -->
+<div class="py-stack-xl flex flex-col items-center gap-4 border-t border-outline-variant mt-stack-lg" id="scroll-trigger">
+<div class="w-12 h-12 border-4 border-outline-variant border-t-primary rounded-full animate-spin"></div>
+<span class="font-label-caps text-on-surface-variant">LOADING MORE ARTICLES...</span>
+</div>
+</section>
+<!-- Sidebar -->
+<aside class="lg:col-span-4 flex flex-col gap-stack-lg">
+<div class="bg-primary text-on-primary p-stack-md">
+<h3 class="font-label-caps text-lg border-b border-on-primary/30 mb-4 pb-2">MOST READ</h3>
+<ul class="flex flex-col gap-4">
+<li class="flex gap-4 group cursor-pointer">
+<span class="text-secondary font-headline-lg italic">01</span>
+<div>
+<h5 class="font-body-md font-bold leading-tight group-hover:underline">Why the next iPhone might not be a phone at all.</h5>
+<span class="text-xs font-label-caps text-primary-fixed-dim">GADGETS • 48K VIEWS</span>
+</div>
+</li>
+<li class="flex gap-4 group cursor-pointer">
+<span class="text-secondary font-headline-lg italic">02</span>
+<div>
+<h5 class="font-body-md font-bold leading-tight group-hover:underline">Inside the secret lab designing the next generation of humanoid robots.</h5>
+<span class="text-xs font-label-caps text-primary-fixed-dim">ROBOTICS • 32K VIEWS</span>
+</div>
+</li>
+<li class="flex gap-4 group cursor-pointer">
+<span class="text-secondary font-headline-lg italic">03</span>
+<div>
+<h5 class="font-body-md font-bold leading-tight group-hover:underline">How local communities are building their own fiber-optic networks.</h5>
+<span class="text-xs font-label-caps text-primary-fixed-dim">TELCO • 29K VIEWS</span>
+</div>
+</li>
+</ul>
+</div>
+<div class="border border-outline p-stack-md bg-surface-container">
+<h3 class="font-label-caps text-lg text-primary mb-4 uppercase font-bold">The Daily Signal</h3>
+<p class="font-body-md text-on-surface-variant mb-6">Our most essential tech stories, delivered to your inbox every morning at 7:00 AM.</p>
+<div class="flex flex-col gap-stack-sm">
+<input class="bg-surface border-outline border p-3 font-label-caps focus:outline-none focus:border-primary-container" placeholder="YOUR EMAIL ADDRESS" type="email"/>
+<button class="bg-primary text-on-primary p-3 font-label-caps uppercase hover:bg-primary-container transition-colors">SUBSCRIBE NOW</button>
+</div>
+</div>
+<div class="sticky top-24 border-t-2 border-primary pt-4">
+<h3 class="font-label-caps mb-4 uppercase">Technology Index</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center border-b border-outline-variant pb-2">
+<span class="font-body-md font-bold text-primary">NASDAQ: TECH</span>
+<span class="font-label-caps text-secondary font-bold">+2.45%</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant pb-2">
+<span class="font-body-md font-bold text-primary">SEMICON: INDX</span>
+<span class="font-label-caps text-secondary font-bold">+1.82%</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant pb-2">
+<span class="font-body-md font-bold text-primary">AI HARDWARE</span>
+<span class="font-label-caps text-error font-bold">-0.34%</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- FOOTER -->
+<footer class="bg-primary text-on-primary w-full border-t-4 border-secondary mt-stack-xl">
+<div class="flex flex-col md:flex-row justify-between items-center py-stack-xl px-margin-desktop max-w-container-max mx-auto gap-stack-lg">
+<div class="flex flex-col gap-2">
+<h2 class="font-headline-md text-headline-md text-on-primary font-bold">THE GAZETTE</h2>
+<p class="font-body-md opacity-80 text-sm max-w-xs">Objective journalism for a sophisticated digital age. Delivering the pulse of progress since 1982.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-body-md text-surface-variant hover:text-secondary-fixed transition-colors" href="#">About</a>
+<a class="font-body-md text-surface-variant hover:text-secondary-fixed transition-colors" href="#">Privacy</a>
+<a class="font-body-md text-surface-variant hover:text-secondary-fixed transition-colors" href="#">Contact</a>
+<a class="font-body-md text-surface-variant hover:text-secondary-fixed transition-colors" href="#">Archive</a>
+</div>
+<div class="text-right">
+<p class="font-body-md text-body-md text-on-primary">© 2024 THE GAZETTE. ALL RIGHTS RESERVED.</p>
+</div>
+</div>
+</footer>
+<!-- MOBILE NAVIGATION DRAWER -->
+<div class="fixed inset-0 bg-black/50 z-[100] hidden transition-opacity opacity-0" id="drawer" onclick="toggleDrawer()">
+<div class="fixed inset-y-0 left-0 w-80 bg-surface flex flex-col py-stack-lg shadow-xl translate-x-[-100%] transition-transform duration-300" onclick="event.stopPropagation()">
+<div class="px-margin-mobile mb-stack-lg flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md text-primary font-bold">SECTIONS</h2>
+<button class="material-symbols-outlined" onclick="toggleDrawer()">close</button>
+</div>
+<nav class="flex flex-col h-full overflow-y-auto">
+<a class="flex items-center gap-4 px-margin-mobile py-4 hover:text-primary transition-transform active:translate-x-1 group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">policy</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant group-hover:text-primary">Politics</span>
+</a>
+<a class="flex items-center gap-4 px-margin-mobile py-4 border-b-2 border-primary text-primary active:translate-x-1" href="#">
+<span class="material-symbols-outlined">memory</span>
+<span class="font-label-caps text-label-caps font-bold">Tech</span>
+</a>
+<a class="flex items-center gap-4 px-margin-mobile py-4 hover:text-primary transition-transform active:translate-x-1 group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">sports_soccer</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant group-hover:text-primary">Sports</span>
+</a>
+<a class="flex items-center gap-4 px-margin-mobile py-4 hover:text-primary transition-transform active:translate-x-1 group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">trending_up</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant group-hover:text-primary">Business</span>
+</a>
+<a class="flex items-center gap-4 px-margin-mobile py-4 hover:text-primary transition-transform active:translate-x-1 group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">theater_comedy</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant group-hover:text-primary">Culture</span>
+</a>
+<a class="flex items-center gap-4 px-margin-mobile py-4 hover:text-primary transition-transform active:translate-x-1 group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">chat</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant group-hover:text-primary">Opinion</span>
+</a>
+</nav>
+</div>
+</div>
+<!-- BOTTOM NAV BAR (Mobile only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface border-t border-outline-variant flex justify-around items-center h-16 w-full px-4">
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:text-primary transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-[10px]">HOME</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-caps text-[10px]">DISCOVER</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:text-primary transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="font-label-caps text-[10px]">SAVED</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:text-primary transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-[10px]">PROFILE</span>
+</a>
+</nav>
+<script>
+        function toggleDrawer() {
+            const drawer = document.getElementById('drawer');
+            const inner = drawer.querySelector('div');
+            if (drawer.classList.contains('hidden')) {
+                drawer.classList.remove('hidden');
+                setTimeout(() => {
+                    drawer.classList.remove('opacity-0');
+                    inner.classList.remove('translate-x-[-100%]');
+                }, 10);
+            } else {
+                drawer.classList.add('opacity-0');
+                inner.classList.add('translate-x-[-100%]');
+                setTimeout(() => {
+                    drawer.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        // Simulating infinite scroll with intersection observer
+        const observerOptions = {
+            root: null,
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Logic to load more articles would go here
+                    // For this UI demo, we'll just keep the loader spinning
+                    console.log('Loading more articles...');
+                }
+            });
+        }, observerOptions);
+
+        const trigger = document.getElementById('scroll-trigger');
+        if (trigger) observer.observe(trigger);
+    </script>
+</body></html>
