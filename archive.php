@@ -8,57 +8,75 @@
  * @since 1.0.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
 get_header();
 ?>
 
-<div class="sn-content-area">
-	<main id="primary" class="sn-main" role="main">
+<main id="primary"
+	class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg space-y-stack-xl" role="main">
 
-		<?php if ( have_posts() ) : ?>
+	<?php if (have_posts()): ?>
 
-		<header class="sn-archive-header">
+		<header class="border-b-2 border-primary pb-4 mb-stack-lg">
 			<?php
-			the_archive_title( '<h1 class="sn-archive-header__title">', '</h1>' );
-			the_archive_description( '<div class="sn-archive-header__description">', '</div>' );
+			the_archive_title('<h1 class="font-headline-lg text-display-xl tracking-tighter uppercase mb-4">', '</h1>');
+			$desc = get_the_archive_description();
+			if ($desc) {
+				echo wp_kses_post(sprintf('<div class="font-body-md text-on-surface-variant max-w-2xl">%s</div>', $desc));
+			}
 			?>
 		</header>
 
-		<?php
-		$layout_style  = get_theme_mod( 'scalernews_archive_layout', 'grid' );
-		$card_style    = get_theme_mod( 'scalernews_card_style', 'flat' );
-		$wrapper_class = 'sn-posts-' . esc_attr( $layout_style ) . ' sn-card-style-' . esc_attr( $card_style );
-		?>
-		<div class="<?php echo esc_attr( $wrapper_class ); ?>">
-			<?php
-			while ( have_posts() ) :
-				the_post();
-				get_template_part( 'template-parts/content', get_post_type() );
-			endwhile;
-			?>
+		<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+
+			<div class="md:col-span-8">
+				<div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter">
+					<?php
+					while (have_posts()):
+						the_post();
+						get_template_part('template-parts/content', get_post_type());
+					endwhile;
+					?>
+				</div>
+
+				<nav class="mt-stack-xl font-label-caps text-label-caps"
+					aria-label="<?php esc_attr_e('Posts navigation', 'scalernews'); ?>">
+					<?php
+					the_posts_pagination(array(
+						'mid_size' => 2,
+						'prev_text' => '<span class="px-4 py-2 border border-outline hover:bg-primary hover:text-on-primary transition-colors">&laquo; PREV</span>',
+						'next_text' => '<span class="px-4 py-2 border border-outline hover:bg-primary hover:text-on-primary transition-colors">NEXT &raquo;</span>',
+						'class' => 'flex justify-center',
+					));
+					?>
+				</nav>
+			</div>
+
+			<aside class="md:col-span-4 space-y-6">
+				<h3 class="font-label-caps text-label-caps border-b-2 border-primary pb-1 mb-4 uppercase">Sidebar</h3>
+				<?php get_sidebar(); ?>
+			</aside>
+
 		</div>
 
-		<nav class="sn-pagination" aria-label="<?php esc_attr_e( 'Posts navigation', 'scalernews' ); ?>">
-			<?php
-			the_posts_pagination( array(
-				'mid_size'  => 2,
-				'prev_text' => '&laquo;',
-				'next_text' => '&raquo;',
-			) );
-			?>
-		</nav>
+	<?php else: ?>
 
-		<?php else : ?>
-			<?php get_template_part( 'template-parts/content', 'none' ); ?>
-		<?php endif; ?>
+		<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+			<div class="md:col-span-8">
+				<?php get_template_part('template-parts/content', 'none'); ?>
+			</div>
+			<aside class="md:col-span-4 space-y-6">
+				<h3 class="font-label-caps text-label-caps border-b-2 border-primary pb-1 mb-4 uppercase">Sidebar</h3>
+				<?php get_sidebar(); ?>
+			</aside>
+		</div>
 
-	</main><!-- #primary -->
+	<?php endif; ?>
 
-	<?php get_sidebar(); ?>
-</div><!-- .sn-content-area -->
+</main><!-- #primary -->
 
 <?php
 get_footer();

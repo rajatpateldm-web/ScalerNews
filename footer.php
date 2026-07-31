@@ -82,27 +82,7 @@ if (!defined('ABSPATH')) {
 	</div>
 </footer><!-- #colophon -->
 
-<!-- Mobile Bottom Navigation Shell -->
-<nav class="md:hidden fixed bottom-0 w-full bg-surface border-t border-outline-variant z-50 h-[64px] flex justify-around items-center px-4"
-	style="bottom: 0;">
-	<a href="<?php echo esc_url(home_url('/')); ?>"
-		class="flex flex-col items-center justify-center text-primary font-bold">
-		<span class="material-symbols-outlined" data-icon="home">home</span>
-		<span class="font-label-caps text-[10px] uppercase">Home</span>
-	</a>
-	<a href="#" class="flex flex-col items-center justify-center text-on-surface-variant opacity-70">
-		<span class="material-symbols-outlined" data-icon="explore">explore</span>
-		<span class="font-label-caps text-[10px] uppercase">Discover</span>
-	</a>
-	<a href="#" class="flex flex-col items-center justify-center text-on-surface-variant opacity-70">
-		<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
-		<span class="font-label-caps text-[10px] uppercase">Saved</span>
-	</a>
-	<a href="#" class="flex flex-col items-center justify-center text-on-surface-variant opacity-70">
-		<span class="material-symbols-outlined" data-icon="person">person</span>
-		<span class="font-label-caps text-[10px] uppercase">Profile</span>
-	</a>
-</nav>
+<!-- Removed Bottom Mobile Navigation Shell as per user request -->
 
 <?php do_action('scalernews_after_footer'); ?>
 
