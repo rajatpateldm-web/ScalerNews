@@ -3,7 +3,7 @@
  * The front page template
  *
  * Displays the news homepage with hero banner, category sections, and sidebar.
- * Styled using the injected Stitch Tailwind framework.
+ * Optimized to use a single WP_Query for performance.
  */
 
 if (!defined('ABSPATH')) {
@@ -11,6 +11,60 @@ if (!defined('ABSPATH')) {
 }
 
 get_header();
+
+// Fetch all posts needed for homepage in a single query
+$homepage_posts = new WP_Query(array(
+	'posts_per_page' => 9, // 1 hero + 4 latest + 4 featured (max)
+	'ignore_sticky_posts' => 1,
+));
+
+$hero_post     = null;
+$latest_posts  = array();
+$featured_posts = array();
+
+$featured_cat_id = get_theme_mod('scalernews_featured_category', '');
+
+if ($homepage_posts->have_posts()) {
+	$count = 0;
+	while ($homepage_posts->have_posts()) {
+		$homepage_posts->the_post();
+		$count++;
+
+		if ($count === 1) {
+			$hero_post = get_post();
+		} elseif ($count <= 5) {
+			$latest_posts[] = get_post();
+		}
+
+		// Collect featured category posts
+		if (!empty($featured_cat_id) && in_category($featured_cat_id)) {
+			$featured_posts[] = get_post();
+			if (count($featured_posts) >= 4) {
+				// We have enough featured posts
+			}
+		}
+	}
+	wp_reset_postdata();
+}
+
+// If we don't have enough featured posts from the main query, fetch them separately
+if (!empty($featured_cat_id) && count($featured_posts) < 4) {
+	$cat_args = array(
+		'posts_per_page' => 4,
+		'cat' => $featured_cat_id,
+		'post__not_in' => wp_list_pluck($featured_posts, 'ID'),
+	);
+	$cat_query = new WP_Query($cat_args);
+	if ($cat_query->have_posts()) {
+		while ($cat_query->have_posts()) {
+			$cat_query->the_post();
+			$featured_posts[] = get_post();
+		}
+		wp_reset_postdata();
+	}
+}
+
+$cat_obj = !empty($featured_cat_id) ? get_category($featured_cat_id) : null;
 ?>
 
 <main id="primary"
@@ -22,56 +76,47 @@ get_header();
 
 		<!-- Left Col: Top Story (Latest Post) -->
 		<div class="md:col-span-8">
-			<?php
-			$hero_args = array(
-				'posts_per_page' => 1,
-				'ignore_sticky_posts' => 1,
-			);
-			$hero_query = new WP_Query($hero_args);
-			if ($hero_query->have_posts()):
-				while ($hero_query->have_posts()):
-					$hero_query->the_post();
-					?>
-					<article <?php post_class('group cursor-pointer'); ?>>
-						<div class="relative overflow-hidden mb-4 aspect-video bg-surface-container">
-							<a href="<?php the_permalink(); ?>">
-								<?php if (has_post_thumbnail()): ?>
-									<?php the_post_thumbnail('large', array('class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105')); ?>
-								<?php else: ?>
-									<div
-										class="w-full h-full bg-surface-variant transition-transform duration-500 group-hover:scale-105">
-									</div>
-								<?php endif; ?>
-							</a>
-							<div class="absolute top-4 left-4">
-								<span class="bg-primary text-on-primary font-label-caps text-label-caps px-3 py-1 uppercase">Top
-									Story</span>
-							</div>
+			<?php if ($hero_post): ?>
+				<?php setup_postdata($hero_post); ?>
+				<article <?php post_class('group cursor-pointer'); ?>>
+					<div class="relative overflow-hidden mb-4 aspect-video bg-surface-container">
+						<a href="<?php the_permalink(); ?>">
+							<?php if (has_post_thumbnail()): ?>
+								<?php the_post_thumbnail('large', array('class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105')); ?>
+							<?php else: ?>
+								<div
+									class="w-full h-full bg-surface-variant transition-transform duration-500 group-hover:scale-105">
+								</div>
+							<?php endif; ?>
+						</a>
+						<div class="absolute top-4 left-4">
+							<span class="bg-primary text-on-primary font-label-caps text-label-caps px-3 py-1 uppercase">Top
+								Story</span>
 						</div>
-						<h2
-							class="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-3 leading-tight decoration-primary group-hover:underline">
-							<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-						</h2>
-						<div class="font-body-lg text-body-lg text-on-surface-variant mb-4 line-clamp-3">
-							<?php the_excerpt(); ?>
-						</div>
-						<div class="flex items-center space-x-4">
-							<span
-								class="font-label-caps text-label-caps text-secondary font-bold uppercase"><?php $cats = get_the_category();
-								if (!empty($cats))
-									echo esc_html($cats[0]->name);
-								else
-									echo 'NEWS'; ?></span>
-							<span class="text-outline text-xs">&bull;</span>
-							<span
-								class="font-label-caps text-label-caps text-on-surface-variant opacity-70 uppercase"><?php echo get_the_date(); ?></span>
-						</div>
-					</article>
-				<?php
-				endwhile;
-				wp_reset_postdata();
-			endif;
-			?>
+					</div>
+					<h2
+						class="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-3 leading-tight decoration-primary group-hover:underline">
+						<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+					</h2>
+					<div class="font-body-lg text-body-lg text-on-surface-variant mb-4 line-clamp-3">
+						<?php the_excerpt(); ?>
+					</div>
+					<div class="flex items-center space-x-4">
+						<span
+							class="font-label-caps text-label-caps text-secondary font-bold uppercase"><?php
+							$cats = get_the_category();
+							if (!empty($cats)) {
+								echo esc_html($cats[0]->name);
+							} else {
+								echo esc_html__('NEWS', 'scalernews');
+							} ?></span>
+						<span class="text-outline text-xs">&bull;</span>
+						<span
+							class="font-label-caps text-label-caps text-on-surface-variant opacity-70 uppercase"><?php echo get_the_date(); ?></span>
+					</div>
+				</article>
+				<?php wp_reset_postdata(); ?>
+			<?php endif; ?>
 		</div>
 
 		<!-- Right Col: Sidebar Top Stories / Native Widgets -->
@@ -97,15 +142,7 @@ get_header();
 	</section>
 
 	<!-- Video Reports (Converted to Latest News Grid) -->
-	<?php
-	$latest_args = array(
-		'posts_per_page' => 4,
-		'offset' => 1, // Skip the hero post
-		'ignore_sticky_posts' => 1,
-	);
-	$latest_query = new WP_Query($latest_args);
-	if ($latest_query->have_posts()):
-		?>
+	<?php if (!empty($latest_posts)): ?>
 		<section class="bg-primary p-margin-desktop text-on-primary">
 			<div class="flex justify-between items-center mb-stack-lg border-b border-on-primary/20 pb-2">
 				<h3 class="font-label-caps text-headline-md uppercase tracking-widest flex items-center">
@@ -113,8 +150,8 @@ get_header();
 				</h3>
 			</div>
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
-				<?php while ($latest_query->have_posts()):
-					$latest_query->the_post(); ?>
+				<?php foreach ($latest_posts as $post): ?>
+					<?php setup_postdata($post); ?>
 					<article class="group cursor-pointer">
 						<div class="relative aspect-video bg-tertiary-container mb-3 overflow-hidden">
 							<a href="<?php the_permalink(); ?>">
@@ -130,72 +167,56 @@ get_header();
 						<h5 class="font-body-md font-bold leading-tight line-clamp-2"><a
 								href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
 					</article>
-				<?php endwhile;
-				wp_reset_postdata(); ?>
+					<?php wp_reset_postdata(); ?>
+				<?php endforeach; ?>
 			</div>
 		</section>
 	<?php endif; ?>
 
 	<!-- Opinion Section (Converted to Featured Category) -->
-	<?php
-	$featured_cat = get_theme_mod('scalernews_featured_category', '');
-	if (!empty($featured_cat)):
-		$cat_obj = get_category($featured_cat);
-		if ($cat_obj && !is_wp_error($cat_obj)):
-			$cat_args = array(
-				'posts_per_page' => 4,
-				'cat' => $featured_cat,
-			);
-			$cat_query = new WP_Query($cat_args);
-
-			if ($cat_query->have_posts()):
-				?>
-				<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter py-stack-lg border-y border-outline-variant">
-					<div class="md:col-span-1">
-						<h3 class="font-headline-lg italic border-b-4 border-secondary inline-block mb-8">
-							<?php echo esc_html($cat_obj->name); ?></h3>
-						<?php $desc = category_description($featured_cat);
-						if ($desc): ?>
-							<div class="font-body-md text-on-surface-variant mb-6"><?php echo wp_kses_post($desc); ?></div>
-						<?php endif; ?>
-					</div>
-					<div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
-						<?php while ($cat_query->have_posts()):
-							$cat_query->the_post(); ?>
-							<article class="flex flex-col space-y-4 group cursor-pointer">
-								<div class="flex items-center space-x-4">
-									<div class="w-16 h-16 rounded-full overflow-hidden bg-surface-variant">
-										<a href="<?php get_author_posts_url(get_the_author_meta('ID')); ?>">
-											<?php echo get_avatar(get_the_author_meta('ID'), 64, '', '', array('class' => 'w-full h-full object-cover')); ?>
-										</a>
-									</div>
-									<div>
-										<span
-											class="font-label-caps text-label-caps font-bold uppercase"><?php echo get_the_author(); ?></span>
-										<span class="block text-xs text-outline italic"><?php echo get_the_date(); ?></span>
-									</div>
-								</div>
-								<h4
-									class="font-headline-md text-[22px] leading-tight group-hover:text-secondary transition-colors italic">
-									<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-								</h4>
-							</article>
-						<?php endwhile;
-						wp_reset_postdata(); ?>
-					</div>
-				</section>
-			<?php
-			endif;
-		endif;
-	endif;
-	?>
+	<?php if (!empty($featured_cat_id) && $cat_obj && !is_wp_error($cat_obj) && !empty($featured_posts)): ?>
+		<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter py-stack-lg border-y border-outline-variant">
+			<div class="md:col-span-1">
+				<h3 class="font-headline-lg italic border-b-4 border-secondary inline-block mb-8">
+					<?php echo esc_html($cat_obj->name); ?></h3>
+				<?php $desc = category_description($featured_cat_id);
+				if ($desc): ?>
+					<div class="font-body-md text-on-surface-variant mb-6"><?php echo wp_kses_post($desc); ?></div>
+				<?php endif; ?>
+			</div>
+			<div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
+				<?php foreach ($featured_posts as $post): ?>
+					<?php setup_postdata($post); ?>
+					<article class="flex flex-col space-y-4 group cursor-pointer">
+						<div class="flex items-center space-x-4">
+							<div class="w-16 h-16 rounded-full overflow-hidden bg-surface-variant">
+								<a href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>">
+									<?php echo get_avatar(get_the_author_meta('ID'), 64, '', '', array('class' => 'w-full h-full object-cover')); ?>
+								</a>
+							</div>
+							<div>
+								<span
+									class="font-label-caps text-label-caps font-bold uppercase"><?php echo get_the_author(); ?></span>
+								<span class="block text-xs text-outline italic"><?php echo get_the_date(); ?></span>
+							</div>
+						</div>
+						<h4
+							class="font-headline-md text-[22px] leading-tight group-hover:text-secondary transition-colors italic">
+							<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+						</h4>
+					</article>
+					<?php wp_reset_postdata(); ?>
+				<?php endforeach; ?>
+			</div>
+		</section>
+	<?php endif; ?>
 
 	<!-- Newsletter / Promotion Static Block -->
 	<section class="bg-surface-container py-stack-xl px-margin-desktop text-center border-2 border-primary">
 		<h2 class="font-display-xl text-[32px] md:text-display-xl mb-4 text-primary uppercase">Information is Agency
 		</h2>
 		<p class="max-w-2xl mx-auto font-body-lg text-body-lg text-on-surface-variant mb-8">Get the morning edition of
-			The Gazette delivered directly to your inbox. No fluff, no bias, just the facts that matter.</p>
+			<?php echo esc_html(get_bloginfo('name')); ?> delivered directly to your inbox. No fluff, no bias, just the facts that matter.</p>
 		<form class="flex flex-col md:flex-row max-w-lg mx-auto gap-4" onsubmit="event.preventDefault();">
 			<input
 				class="flex-grow border border-outline px-4 py-3 font-label-caps focus:border-primary focus:ring-0 outline-none uppercase text-xs"

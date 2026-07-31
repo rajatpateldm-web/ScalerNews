@@ -45,7 +45,7 @@ if (!defined('ABSPATH')) {
 	<div
 		class="flex flex-col md:flex-row justify-between items-center py-stack-xl px-margin-desktop max-w-container-max mx-auto text-on-primary dark:text-on-tertiary">
 		<div class="flex flex-col items-center md:items-start mb-8 md:mb-0">
-			<h2 class="font-headline-md text-headline-md mb-2">THE GAZETTE</h2>
+			<h2 class="font-headline-md text-headline-md mb-2"><?php echo esc_html(get_bloginfo('name')); ?></h2>
 			<p class="font-label-caps text-[10px] opacity-60">ESTABLISHED 1894</p>
 		</div>
 		<div class="flex flex-wrap justify-center gap-8 mb-8 md:mb-0">
@@ -118,19 +118,6 @@ if (!defined('ABSPATH')) {
 	</a>
 <?php endif; ?>
 
-<script>
-	// Simple sticky header adjustment script from Stitch design
-	window.addEventListener('scroll', function () {
-		const header = document.querySelector('header#masthead');
-		if (header) {
-			if (window.pageYOffset > 50) {
-				header.classList.add('shadow-md');
-			} else {
-				header.classList.remove('shadow-md');
-			}
-		}
-	});
-</script>
 
 <?php wp_footer(); ?>
 </body>

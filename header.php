@@ -121,6 +121,12 @@ if (!defined('ABSPATH')) {
 			animation: ticker 30s linear infinite;
 		}
 
+		@media (prefers-reduced-motion: reduce) {
+			.ticker-scroll {
+				animation: none;
+			}
+		}
+
 		@keyframes ticker {
 			0% {
 				transform: translateX(100%);
@@ -214,7 +220,7 @@ if (!defined('ABSPATH')) {
 						data-icon="menu">menu</button>
 					<h1
 						class="font-headline-lg-mobile text-headline-lg-mobile md:text-headline-lg font-bold text-primary uppercase tracking-tighter">
-						<a href="<?php echo esc_url(home_url('/')); ?>" rel="home">THE GAZETTE</a>
+						<a href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php echo esc_html(get_bloginfo('name')); ?></a>
 					</h1>
 					<button
 						class="bg-primary text-on-primary font-label-caps text-label-caps px-6 py-2 transition-all active:scale-95">SUBSCRIBE</button>

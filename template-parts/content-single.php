@@ -13,6 +13,77 @@ if (!defined('ABSPATH')) {
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('mb-stack-lg pb-8'); ?>>
 
+	<header class="mb-stack-md">
+		<?php
+		$categories = get_the_category();
+		if (!empty($categories)):
+			?>
+			<a class="font-label-caps text-label-caps text-secondary mb-stack-sm flex items-center gap-2 hover:underline w-fit uppercase"
+				href="<?php echo esc_url(get_category_link($categories[0]->term_id)); ?>">
+				<span class="w-1.5 h-1.5 bg-secondary rounded-full block"></span>
+				<?php echo esc_html($categories[0]->name); ?>
+			</a>
+		<?php endif; ?>
+
+		<?php the_title('<h1 class="font-headline-lg text-[40px] md:text-display-xl tracking-tighter uppercase mb-4 leading-tight">', '</h1>'); ?>
+
+		<div
+			class="flex flex-col md:flex-row justify-between items-start md:items-center py-stack-md border-b-2 border-primary gap-4">
+			<?php
+			$show_author = get_theme_mod('scalernews_single_show_author', true);
+			if ($show_author):
+				?>
+				<div class="flex items-center gap-3">
+					<?php echo get_avatar(get_the_author_meta('ID'), 48, '', '', array('class' => 'w-12 h-12 rounded-full border border-primary')); ?>
+					<div>
+						<a href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>"
+							class="font-label-caps text-label-caps text-primary font-bold hover:underline uppercase block">
+							<?php echo esc_html(get_the_author()); ?>
+						</a>
+						<?php
+						$author_desc = get_the_author_meta('description');
+						if (!$author_desc)
+							$author_desc = 'Contributor'; // Sensible fallback
+						?>
+						<p class="font-body-md text-xs text-on-surface-variant italic m-0">
+							<?php echo esc_html($author_desc); ?>
+						</p>
+					</div>
+				</div>
+			<?php endif; ?>
+
+			<div
+				class="flex items-center gap-4 font-label-caps text-label-caps text-on-surface-variant flex-wrap uppercase">
+				<div class="flex items-center gap-2 md:border-r md:border-outline-variant md:pr-4">
+					<span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span>
+					<time datetime="<?php echo esc_attr(get_the_date('c')); ?>">
+						<?php echo esc_html(get_the_date()); ?>
+					</time>
+				</div>
+				<div class="flex items-center gap-2 md:border-r md:border-outline-variant md:pr-4">
+					<span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span>
+					<?php echo esc_html(scalernews_reading_time()); ?>
+				</div>
+
+				<div class="flex gap-2">
+					<button
+						class="w-8 h-8 border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors"><span
+							class="material-symbols-outlined text-[16px]" data-icon="share">share</span></button>
+					<button
+						class="w-8 h-8 border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors"><span
+							class="material-symbols-outlined text-[16px]"
+							data-icon="qr_code_2">qr_code_2</span></button>
+					<button
+						class="w-8 h-8 border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors"><span
+							class="material-symbols-outlined text-[16px]" data-icon="bookmark">bookmark</span></button>
+					<button
+						class="w-8 h-8 border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors"><span
+							class="material-symbols-outlined text-[16px]" data-icon="mail">mail</span></button>
+				</div>
+			</div>
+		</div>
+	</header>
+
 	<?php
 	$fi_display = get_theme_mod('scalernews_single_featured_image', 'content');
 	if ('hidden' !== $fi_display && has_post_thumbnail()):
@@ -23,71 +94,12 @@ if (!defined('ABSPATH')) {
 			$caption = get_the_post_thumbnail_caption();
 			if ($caption):
 				?>
-				<div class="absolute bottom-0 w-full bg-black/60 text-white p-2">
+				<div class="absolute bottom-0 left-0 w-full bg-black/60 text-white p-2">
 					<p class="font-label-caps text-label-caps m-0"><?php echo esc_html($caption); ?></p>
 				</div>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
-
-	<header class="mb-stack-lg">
-		<?php
-		$categories = get_the_category();
-		if (!empty($categories)):
-			?>
-			<a class="inline-block bg-primary text-on-primary font-label-caps text-label-caps px-3 py-1 uppercase mb-4"
-				href="<?php echo esc_url(get_category_link($categories[0]->term_id)); ?>">
-				<?php echo esc_html($categories[0]->name); ?>
-			</a>
-		<?php endif; ?>
-
-		<?php the_title('<h1 class="font-headline-lg text-[40px] md:text-display-xl tracking-tighter uppercase mb-4 leading-tight">', '</h1>'); ?>
-
-		<div
-			class="font-label-caps text-label-caps flex flex-wrap items-center gap-4 mb-8 text-on-surface-variant uppercase border-y border-outline-variant py-3">
-			<?php
-			$show_author = get_theme_mod('scalernews_single_show_author', true);
-			if ($show_author):
-				?>
-				<span class="flex items-center gap-2">
-					<span class="material-symbols-outlined text-[16px]" data-icon="edit">edit</span>
-					<?php
-					printf(
-						/* translators: %s: post author */
-						esc_html__('By %s', 'scalernews'),
-						'<a class="hover:text-primary transition-colors font-bold" href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . '">' . esc_html(get_the_author()) . '</a>'
-					);
-					?>
-				</span>
-				<span class="text-outline">&bull;</span>
-			<?php endif; ?>
-
-			<span class="flex items-center gap-2">
-				<span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span>
-				<time datetime="<?php echo esc_attr(get_the_date('c')); ?>">
-					<?php echo esc_html(get_the_date()); ?>
-				</time>
-			</span>
-			<span class="text-outline">&bull;</span>
-
-			<span class="flex items-center gap-2">
-				<span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span>
-				<?php echo esc_html(scalernews_reading_time()); ?>
-			</span>
-
-			<?php if (comments_open()): ?>
-				<span class="text-outline">&bull;</span>
-				<span class="flex items-center gap-2">
-					<span class="material-symbols-outlined text-[16px]" data-icon="chat_bubble">chat_bubble</span>
-					<?php comments_popup_link(
-						esc_html__('0 Comments', 'scalernews'),
-						esc_html__('1 Comment', 'scalernews'),
-						esc_html__('% Comments', 'scalernews')
-					); ?>
-				</span>
-			<?php endif; ?>
-		</div>
-	</header>
 
 	<div class="font-body-lg text-body-lg leading-relaxed text-on-background entry-content editorial-dropcap">
 		<?php
